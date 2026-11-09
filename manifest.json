@@ -1,0 +1,16 @@
+{
+  "name": "ThermalPulse UAE",
+  "short_name": "ThermalPulse",
+  "description": "Climate-Resilient Worker Health and Predictive Thermal Strain Shield",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230284c7'/><path d='M50 20v35l25 15' stroke='white' stroke-width='8' fill='none'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
