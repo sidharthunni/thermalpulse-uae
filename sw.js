@@ -1,18 +1,7 @@
-const CACHE_NAME = 'thermalpulse-v1';
-const ASSETS = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './manifest.json'
-];
+// ThermalPulse UAE Service Worker v4 (Cache-Busting & Network-First)
+const CACHE_NAME = 'thermalpulse-v4-cachebuster';
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
-  );
   self.skipWaiting();
 });
 
@@ -20,21 +9,23 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.map((key) => {
+          return caches.delete(key);
+        })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
+  // Always fetch from network first so updates are instant; fallback to cache only if offline
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      });
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        return networkResponse;
+      })
+      .catch(() => {
+        return caches.match(event.request);
+      })
   );
 });

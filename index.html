@@ -6,10 +6,10 @@
   <title>ThermalPulse UAE | Predictive Climate-Resilient Health Platform</title>
   <meta name="description" content="Predictive Micro-Climate & Physiological Thermal Strain Shield for Industrial Workforces. Abu Dhabi Department of Health, Microsoft, Inception/G42, MBZUAI.">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=4.2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -17,32 +17,32 @@
   <header class="header">
     <div class="brand">
       <div class="brand-icon-wrap" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
         </svg>
       </div>
       <div class="brand-text">
-        <h1>
+        <h1 id="txtBrandTitle">
           ThermalPulse UAE
-          <span class="brand-badge">DoH Focus Area 2</span>
+          <span class="brand-badge" id="txtBrandBadge">DoH Challenge [07]</span>
         </h1>
-        <p>Abu Dhabi Department of Health &bull; Microsoft &bull; Inception / G42 &bull; MBZUAI</p>
+        <p id="txtBrandSubtitle">Abu Dhabi Department of Health &bull; Microsoft &bull; Inception / G42 &bull; MBZUAI</p>
       </div>
     </div>
 
     <!-- Navigation Role Segmented Control -->
     <nav class="nav-tabs" aria-label="Operational Mode">
-      <button class="nav-btn active" data-view="workerView">
+      <button class="nav-btn active" data-view="workerView" id="tabWorker">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        Worker Field PWA &amp; Simulation
+        <span id="txtTabWorker">Worker Field PWA &amp; Lab</span>
       </button>
-      <button class="nav-btn" data-view="supervisorView">
+      <button class="nav-btn" data-view="supervisorView" id="tabSupervisor">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-        Supervisor Command Center
+        <span id="txtTabSupervisor">Supervisor Command Center</span>
       </button>
-      <button class="nav-btn" data-view="metricsView">
+      <button class="nav-btn" data-view="metricsView" id="tabMetrics">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-        OSHAD Audit &amp; Clinical KPIs
+        <span id="txtTabMetrics">OSHAD Audit &amp; KPIs</span>
       </button>
     </nav>
 
@@ -51,75 +51,107 @@
       <select id="langSelect" class="select-styled" aria-label="Select Interface Language">
         <option value="en">English (US)</option>
         <option value="ar">العربية (Arabic - RTL)</option>
-        <option value="ur">اردو (Urdu - RTL)</option>
-        <option value="hi">हिन्दी (Hindi)</option>
-        <option value="bn">বাংলা (Bengali)</option>
-        <option value="tl">Tagalog (Filipino)</option>
       </select>
-      <div class="status-badge-live">
-        <span class="live-pulse-dot"></span>
-        <span id="txtLiveStatus">TELEMETRY MESH (1 Hz)</span>
+      
+      <!-- Interactive Site Gate Sync Status Badge -->
+      <div class="status-badge-gate" id="gateStatusBadge" title="Click to scan and authenticate shift badge">
+        <span class="gate-dot"></span>
+        <span id="txtGateStatus">SITE GATE: SYNC PENDING</span>
       </div>
     </div>
   </header>
 
-  <!-- Live Micro-Climate Telemetry Bar -->
+  <!-- Live Micro-Climate Telemetry Bar with Physical Gauges -->
   <section class="telemetry-ticker" aria-label="Live Environmental Telemetry Feed">
     <div class="ticker-site-info">
       <svg class="ticker-site-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
       </svg>
-      <span class="ticker-site-label">Abu Dhabi Deployment Sector:</span>
-      <select id="siteSelect" class="select-styled" style="font-weight: 600;">
+      <span class="ticker-site-label" id="lblSectorSelect">Abu Dhabi Location:</span>
+      <select id="siteSelect" class="select-styled" style="font-weight: 700;">
         <option value="al_dhafra">Al Dhafra Solar PV Complex (Extreme Desert Arid)</option>
-        <option value="masdar">Masdar City Sustainable District (Shaded Urban Courtyards)</option>
-        <option value="khalifa_port">Khalifa Industrial Zone / KIZAD (Extreme Maritime Humidity)</option>
-        <option value="saadiyat">Saadiyat Cultural Infrastructure (Ventilated Marine Breeze)</option>
+        <option value="masdar">Masdar City Sustainable Construction (Shaded Urban Courtyard)</option>
+        <option value="khalifa_port">Khalifa Industrial Port / KIZAD (Extreme Maritime Humidity)</option>
+        <option value="saadiyat">Saadiyat Cultural District (Ventilated Coastal Breeze)</option>
       </select>
     </div>
 
-    <!-- Live Telemetry Values -->
+    <!-- Live Telemetry Values with Dynamic Visual Micro-Gauge Bars -->
     <div class="telemetry-metrics-strip">
       <div class="metric-pill" id="pillTemp">
-        <span class="label">Ambient Temp</span>
+        <span class="label">
+          <span id="lblTemp">Ambient Temp</span>
+          <span style="font-size: 0.6rem; color: var(--accent-cyan);">30-55&deg;C</span>
+        </span>
         <div class="value-wrap">
-          <span class="value" id="valTemp">48.5</span>
+          <span class="value" id="valTemp">49.2</span>
           <span class="unit">&deg;C</span>
         </div>
+        <div class="micro-gauge-track">
+          <div class="micro-gauge-fill" id="gaugeFillTemp" style="width: 80%; background: linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+        </div>
       </div>
+
       <div class="metric-pill" id="pillHumidity">
-        <span class="label">Relative Humidity</span>
+        <span class="label">
+          <span id="lblHumidity">Humidity</span>
+          <span style="font-size: 0.6rem; color: var(--accent-cyan);">10-100%</span>
+        </span>
         <div class="value-wrap">
           <span class="value" id="valHumidity">28</span>
           <span class="unit">%</span>
         </div>
+        <div class="micro-gauge-track">
+          <div class="micro-gauge-fill" id="gaugeFillHumidity" style="width: 28%; background: linear-gradient(90deg, #00dfd8, #0070f3);"></div>
+        </div>
       </div>
+
       <div class="metric-pill" id="pillSolar">
-        <span class="label">Direct Solar</span>
+        <span class="label">
+          <span id="lblSolar">Direct Solar</span>
+          <span style="font-size: 0.6rem; color: var(--accent-amber);">W/m&sup2;</span>
+        </span>
         <div class="value-wrap">
           <span class="value" id="valSolar">1,080</span>
           <span class="unit">W/m&sup2;</span>
         </div>
-      </div>
-      <div class="metric-pill" id="pillWbgt">
-        <span class="label">WBGT Heat Index</span>
-        <div class="value-wrap">
-          <span class="value" id="valWbgt" style="color: #ef4444;">38.4</span>
-          <span class="unit">&deg;C</span>
+        <div class="micro-gauge-track">
+          <div class="micro-gauge-fill" id="gaugeFillSolar" style="width: 90%; background: linear-gradient(90deg, #f59e0b, #ea580c);"></div>
         </div>
       </div>
-      <div class="metric-pill" id="pillTwl">
-        <span class="label">OSHAD TWL Mandate</span>
+
+      <div class="metric-pill" id="pillWbgt">
+        <span class="label">
+          <span id="lblWbgt">WBGT Index</span>
+          <span style="font-size: 0.6rem; color: #ef4444;">Threshold 32&deg;C</span>
+        </span>
         <div class="value-wrap">
-          <span class="value" id="valTwl" style="color: #f59e0b;">123</span>
-          <span class="unit" id="lblTwlTier">W/m&sup2; (Buffer Zone)</span>
+          <span class="value" id="valWbgt" style="color: #ef4444;">38.6</span>
+          <span class="unit">&deg;C</span>
+        </div>
+        <div class="micro-gauge-track">
+          <div class="micro-gauge-fill" id="gaugeFillWbgt" style="width: 85%; background: #ef4444;"></div>
+        </div>
+      </div>
+
+      <div class="metric-pill" id="pillTwl">
+        <span class="label">
+          <span id="lblTwl">OSHAD TWL</span>
+          <span style="font-size: 0.6rem; color: #f59e0b;">CoP 11.0</span>
+        </span>
+        <div class="value-wrap">
+          <span class="value" id="valTwl" style="color: #f59e0b;">92</span>
+          <span class="unit" id="lblTwlTier">W/m&sup2; (Work-Rest)</span>
+        </div>
+        <div class="micro-gauge-track">
+          <div class="micro-gauge-fill" id="gaugeFillTwl" style="width: 35%; background: #ef4444;"></div>
         </div>
       </div>
     </div>
 
     <div>
       <button id="btnHeatSpike" class="btn-danger-pulse">
-        Simulate Extreme Surge (+3&deg;C)
+        <span id="txtBtnHeatSpike">Simulate Extreme Surge (+3&deg;C)</span>
       </button>
     </div>
   </section>
@@ -131,14 +163,16 @@
     <div class="tour-banner">
       <div class="tour-text">
         <h3 id="tourTitle">Interactive 2-Minute Solution Auto-Tour</h3>
-        <p id="tourDesc">Observe how ThermalPulse UAE dynamically protects frontline personnel from acute heat stress 25 minutes prior to clinical onset.</p>
+        <p id="tourDesc">Experience how ThermalPulse UAE dynamically protects frontline personnel from acute heat stress 25 minutes prior to clinical onset.</p>
       </div>
       <div class="tour-actions">
         <button id="btnStartTour" class="btn-primary">
           <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          Run Guided Auto-Tour
+          <span id="txtBtnTour">Run Guided Auto-Tour</span>
         </button>
-        <button id="btnResetSim" class="btn-secondary">Reset to Baseline</button>
+        <button id="btnResetSim" class="btn-secondary">
+          <span id="txtBtnReset">Reset to Baseline</span>
+        </button>
       </div>
     </div>
 
@@ -156,80 +190,82 @@
                 <span class="dept" id="txtWorkerDept">Sector: Steel Array Mounting &bull; Zone A</span>
               </div>
             </div>
-            <div class="privacy-shield-active" id="txtPrivacyShield">
-              <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-              Privacy Shield Active
-            </div>
+            
+            <!-- Interactive Gate Check-In Button -->
+            <button id="btnOpenScanner" class="gate-sync-btn" aria-label="Scan Site Gate Badge">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h4v2H4v4H2V4a2 2 0 0 1 2-2h4v2H4zm16 0h-4V2h4a2 2 0 0 1 2 2v4h-2V4h-4v2h4zM4 20h4v2H4a2 2 0 0 1-2-2v-4h2v4h4v2H4zm16 0h-4v2h4a2 2 0 0 0 2-2v-4h-2v4h-4v2h4zM8 8h8v8H8z"/></svg>
+              <span id="txtGateSyncBtn">Scan Gate NFC/QR</span>
+            </button>
           </div>
 
-          <!-- Precision Speedometer / Moran PSI Gauge -->
+          <!-- Living Speedometer / DepthWizard-Style Moran PSI Gauge -->
           <div class="gauge-pod">
             <div class="gauge-svg-wrap">
               <svg viewBox="0 0 300 190" width="100%" height="100%">
                 <!-- Recessed Base Track -->
-                <path d="M 45 155 A 105 105 0 0 1 255 155" fill="none" stroke="#1c1c1c" stroke-width="8" stroke-linecap="round" />
+                <path d="M 45 155 A 105 105 0 0 1 255 155" fill="none" stroke="#1c2536" stroke-width="8" stroke-linecap="round" />
                 
-                <!-- Dynamic Active Track (illuminates based on PSI) -->
+                <!-- Dynamic Active Glowing Track -->
                 <path id="gaugeActiveArc" d="M 45 155 A 105 105 0 0 1 255 155" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" stroke-dasharray="330" stroke-dashoffset="110" />
 
                 <!-- 21 Calibrated SVG Ticks & Number Marks -->
                 <line x1="36.0" y1="155.0" x2="26.0" y2="155.0" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="14.0" y="159.0" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">0</text>
+                <text x="14.0" y="159.0" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">0</text>
                 <line x1="34.4" y1="136.7" x2="29.5" y2="135.9" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="41.6" y1="119.8" x2="32.1" y2="116.7" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
                 <line x1="45.8" y1="101.9" x2="41.3" y2="99.6" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="57.8" y1="88.0" x2="49.7" y2="82.1" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="40.0" y="79.1" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">2</text>
+                <text x="40.0" y="79.1" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">2</text>
                 <line x1="67.3" y1="72.3" x2="63.7" y2="68.7" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="83.0" y1="62.8" x2="77.1" y2="54.7" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
                 <line x1="96.9" y1="50.8" x2="94.6" y2="46.3" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="114.8" y1="46.6" x2="111.7" y2="37.1" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="108.0" y="29.7" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">4</text>
+                <text x="108.0" y="29.7" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">4</text>
                 <line x1="131.7" y1="39.4" x2="130.9" y2="34.5" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="150.0" y1="41.0" x2="150.0" y2="31.0" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
                 <line x1="168.3" y1="39.4" x2="169.1" y2="34.5" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="185.2" y1="46.6" x2="188.3" y2="37.1" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="192.0" y="29.7" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">6</text>
+                <text x="192.0" y="29.7" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">6</text>
                 <line x1="203.1" y1="50.8" x2="205.4" y2="46.3" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="217.0" y1="62.8" x2="222.9" y2="54.7" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
                 <line x1="232.7" y1="72.3" x2="236.3" y2="68.7" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="242.2" y1="88.0" x2="250.3" y2="82.1" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="260.0" y="79.1" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">8</text>
+                <text x="260.0" y="79.1" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">8</text>
                 <line x1="254.2" y1="101.9" x2="258.7" y2="99.6" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="258.4" y1="119.8" x2="267.9" y2="116.7" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
                 <line x1="265.6" y1="136.7" x2="270.5" y2="135.9" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
                 <line x1="264.0" y1="155.0" x2="274.0" y2="155.0" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" />
-                <text x="286.0" y="159.0" fill="#71717A" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">10</text>
+                <text x="286.0" y="159.0" fill="#94a3b8" font-size="9" font-family="monospace" font-weight="600" text-anchor="middle">10</text>
 
-                <!-- Precision Tapered Needle -->
+                <!-- Living Speedometer Needle (with Continuous Micro-Motion) -->
                 <g id="gaugeNeedle" transform="rotate(32 150 155)">
-                  <polygon points="148.2,155 150,44 151.8,155" fill="#EDEDED" />
-                  <circle cx="150" cy="46" r="3.5" fill="#00DFD8" />
-                  <circle cx="150" cy="155" r="11" fill="#171717" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
-                  <circle cx="150" cy="155" r="4.5" fill="#00DFD8" />
+                  <polygon points="148.2,155 150,44 151.8,155" fill="#f8fafc" />
+                  <circle cx="150" cy="46" r="3.5" fill="#00dfd8" />
+                  <circle cx="150" cy="155" r="11" fill="#111e33" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+                  <circle cx="150" cy="155" r="4.5" fill="#00dfd8" />
                 </g>
               </svg>
             </div>
 
             <!-- Huge Tabular Digital Readout -->
             <div class="gauge-readout-center">
-              <div class="gauge-psi-val" id="psiValue">6.8</div>
-              <div class="gauge-psi-label">Physiological Strain Index (Moran PSI)</div>
+              <div class="gauge-psi-val" id="psiValue">7.2</div>
+              <div class="gauge-psi-label" id="txtPsiLabel">Physiological Strain Index (Moran PSI)</div>
               <div class="gauge-badge buffer" id="riskBadge">MODERATE THERMAL STRAIN</div>
             </div>
 
             <!-- Secondary Biometric Live Strip -->
             <div class="biometric-live-strip">
               <div class="bio-node">
-                <span class="bio-node-label">Core Temp</span>
+                <span class="bio-node-label" id="lblCoreTemp">Core Temp</span>
                 <div class="bio-node-val" id="valCoreTemp">38.4 &deg;C</div>
               </div>
               <div class="bio-node">
-                <span class="bio-node-label">Heart Rate</span>
-                <div class="bio-node-val" id="valHeartRate" style="color: #f59e0b;">144 bpm</div>
+                <span class="bio-node-label" id="lblHeartRate">Heart Rate</span>
+                <div class="bio-node-val" id="valHeartRate" style="color: var(--accent-amber);">144 bpm</div>
               </div>
               <div class="bio-node">
-                <span class="bio-node-label">Metabolic Load</span>
+                <span class="bio-node-label" id="lblMetabolic">Metabolic Load</span>
                 <div class="bio-node-val" id="valMetabolic">360 W</div>
               </div>
             </div>
@@ -246,9 +282,9 @@
             </div>
           </div>
 
-          <!-- Voice Safety Alert Button with Audio Waveform Visualizer -->
-          <button id="btnVoiceAlert" class="btn-voice-broadcast" aria-label="Play audio safety alert in selected language">
-            <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+          <!-- Voice Safety Alert Button with Animated Audio Equalizer Waveform -->
+          <button id="btnVoiceAlert" class="btn-voice-broadcast" aria-label="Play location-specific audio safety alert">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
             </svg>
             <span id="btnVoiceText">Play Audio Safety Alert (Voice)</span>
@@ -261,29 +297,39 @@
             </div>
           </button>
 
-          <!-- Safe Action Meters -->
+          <!-- Interactive Hydration & Mandatory Rest Controls -->
           <div class="safe-actions-pair">
             <div class="meter-card">
-              <div class="tag" id="lblHydration">Hydration Target</div>
-              <div class="main-val" id="valHydration">500 / 750 mL</div>
-              <div class="sub-caption" id="lblDrinkTimer">Next 250mL in: 08:42</div>
+              <div class="tag">
+                <span id="lblHydration">Hydration Target</span>
+                <span id="valHydrationRatio">500 / 750 mL</span>
+              </div>
+              <div class="main-val" id="valHydration">250 mL Deficit</div>
+              <div class="sub-caption" id="lblDrinkTimer">Scheduled Drink: 08:42</div>
+              <div class="hydration-quick-btns">
+                <button class="hydration-btn" id="btnDrink250">+250 mL</button>
+                <button class="hydration-btn" id="btnDrink150">+150 mL</button>
+              </div>
               <div class="progress-track">
-                <div class="progress-bar" id="barHydration" style="width: 66%; background: var(--ds-cyan);"></div>
+                <div class="progress-bar" id="barHydration" style="width: 66%; background: var(--accent-cyan);"></div>
               </div>
             </div>
 
             <div class="meter-card">
-              <div class="tag" id="lblBreak">Mandatory Rest</div>
-              <div class="main-val" id="valBreak">15 min shade</div>
-              <div class="sub-caption" id="lblBreakTimer">Required in: 18 mins</div>
-              <div class="progress-track">
-                <div class="progress-bar" id="barBreak" style="width: 45%; background: var(--ds-buffer);"></div>
+              <div class="tag">
+                <span id="lblBreak">Mandatory Rest</span>
+                <span id="valBreak">15 min shade</span>
+              </div>
+              <div class="main-val" id="lblBreakTimer">Required in: 18:00</div>
+              <div class="sub-caption" id="lblBreakRegime">OSHAD CoP 11.0 Standard</div>
+              <div class="progress-track" style="margin-top: 1.85rem;">
+                <div class="progress-bar" id="barBreak" style="width: 45%; background: var(--accent-amber);"></div>
               </div>
             </div>
           </div>
 
           <!-- Worker Privacy Statement -->
-          <div style="background: var(--ds-bg-0); border: 1px dashed var(--ds-border-subtle); border-radius: 8px; padding: 0.85rem; font-size: 0.72rem; color: var(--ds-text-secondary); line-height: 1.45;">
+          <div style="background: rgba(8, 15, 26, 0.7); border: 1px dashed var(--border-subtle); border-radius: 10px; padding: 0.85rem; font-size: 0.72rem; color: var(--text-secondary); line-height: 1.45;">
             <p id="txtPrivacyDetail">
               <strong>Worker-First Governance Guarantee:</strong> Your individual biometric signals are processed on-device. Supervisors receive only anonymized crew-level risk averages. Zero data is shared for disciplinary or employment evaluation under Abu Dhabi DoH &amp; OSHAD standards.
             </p>
@@ -295,27 +341,27 @@
           <div class="lab-header">
             <div class="lab-title">
               <h3>
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                Biomedical Simulation Laboratory
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                <span id="txtLabTitle">Biomedical Simulation Laboratory</span>
               </h3>
-              <p>Adjust environmental variables or metabolic workload to observe instantaneous algorithmic reactions across Moran PSI, Stull WBGT, and OSHAD TWL.</p>
+              <p id="txtLabSubtitle">Adjust environmental variables or metabolic workload to observe instantaneous algorithmic reactions across Moran PSI, Stull WBGT, and OSHAD TWL.</p>
             </div>
-            <span class="status-badge-live">LIVE MATH ENGINE</span>
+            <span class="brand-badge">LIVE MATH ENGINE</span>
           </div>
 
           <!-- Slider 1: Ambient Temperature -->
           <div class="slider-group">
             <div class="slider-label-row">
-              <span class="slider-name">Ambient Temperature (&deg;C)</span>
+              <span class="slider-name" id="lblSliderTemp">Ambient Temperature (&deg;C)</span>
               <span class="slider-val-readout" id="sliderTempVal">48.5 &deg;C</span>
             </div>
-            <input type="range" min="32" max="55" step="0.5" value="48.5" class="range-slider" id="sliderTemp" aria-label="Ambient Temperature">
+            <input type="range" min="30" max="55" step="0.5" value="48.5" class="range-slider" id="sliderTemp" aria-label="Ambient Temperature">
           </div>
 
           <!-- Slider 2: Relative Humidity -->
           <div class="slider-group">
             <div class="slider-label-row">
-              <span class="slider-name">Relative Humidity (%)</span>
+              <span class="slider-name" id="lblSliderHumidity">Relative Humidity (%)</span>
               <span class="slider-val-readout" id="sliderHumidityVal">28 %</span>
             </div>
             <input type="range" min="10" max="95" step="1" value="28" class="range-slider" id="sliderHumidity" aria-label="Relative Humidity">
@@ -324,7 +370,7 @@
           <!-- Slider 3: Workload Intensity (Metabolic Rate) -->
           <div class="slider-group">
             <div class="slider-label-row">
-              <span class="slider-name">Worker Metabolic Workload (Watts)</span>
+              <span class="slider-name" id="lblSliderWorkload">Worker Metabolic Workload (Watts)</span>
               <span class="slider-val-readout" id="sliderWorkloadVal">360 W (Heavy Physical Labor)</span>
             </div>
             <input type="range" min="150" max="600" step="10" value="360" class="range-slider" id="sliderWorkload" aria-label="Metabolic Workload">
@@ -333,25 +379,25 @@
           <!-- Real-Time Mathematical Feedback Box -->
           <div class="math-output-card">
             <div class="math-output-header">
-              <h4>Analytical Model Output (ISO 7933 PHS &bull; Moran PSI &bull; OSHAD TWL)</h4>
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ds-text-muted);">ZERO LATENCY SOLVER</span>
+              <h4 id="lblMathHeader">Analytical Model Output (ISO 7933 PHS &bull; Moran PSI &bull; OSHAD TWL)</h4>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-cyan);">ZERO LATENCY SOLVER</span>
             </div>
             <div class="math-grid">
               <div class="math-stat-block">
-                <span class="caption">Predicted Sweat Loss Rate:</span>
+                <span class="caption" id="lblSweatRate">Predicted Sweat Loss Rate:</span>
                 <strong class="val" id="valSweatRate">1,170 mL/hr</strong>
               </div>
               <div class="math-stat-block">
-                <span class="caption">Predicted Safe Exposure Lead:</span>
-                <strong class="val" style="color: var(--ds-buffer);" id="valSafeLimitTime">18 Mins</strong>
+                <span class="caption" id="lblSafeExposure">Predicted Safe Exposure Lead:</span>
+                <strong class="val" style="color: var(--accent-amber);" id="valSafeLimitTime">18 Mins</strong>
               </div>
               <div class="math-stat-block">
-                <span class="caption">Evaporative Heat Capacity:</span>
+                <span class="caption" id="lblEmax">Evaporative Heat Capacity:</span>
                 <strong class="val" id="valEmax">192 W/m&sup2;</strong>
               </div>
               <div class="math-stat-block">
-                <span class="caption">OSHAD Regulatory Regime:</span>
-                <strong class="val" style="color: var(--ds-buffer);" id="valOshadRegime">Buffer Zone Monitoring</strong>
+                <span class="caption" id="lblOshadRegime">OSHAD Regulatory Regime:</span>
+                <strong class="val" style="color: var(--accent-amber);" id="valOshadRegime">Buffer Zone Monitoring</strong>
               </div>
             </div>
           </div>
@@ -364,32 +410,32 @@
     <section id="supervisorView" class="view-section">
       
       <!-- Interactive Site Blueprint Canvas -->
-      <div class="blueprint-card" style="margin-bottom: 1.75rem;">
-        <div class="blueprint-header">
+      <div class="simulation-lab-card" style="margin-bottom: 1.75rem;">
+        <div class="lab-header">
           <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; color: #ffffff;" id="mapSiteTitle">
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #ffffff;" id="mapSiteTitle">
               Al Dhafra Solar Complex &bull; Spatial Thermal Heatmap
             </h3>
-            <p style="font-size: 0.78rem; color: var(--ds-text-secondary); margin-top: 0.2rem;">
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">
               Real-time multi-zone thermal risk matrix with live worker coordinates and micro-climate gradients.
             </p>
           </div>
-          <span class="status-badge-live">LIVE TELEMETRY MESH</span>
+          <span class="brand-badge">LIVE TELEMETRY MESH</span>
         </div>
 
-        <canvas id="siteHeatmap" width="1200" height="420"></canvas>
+        <canvas id="siteHeatmap" width="1200" height="420" style="width: 100%; height: auto; aspect-ratio: 1200/420; background: #050a12; border-radius: 14px; border: 1px solid var(--border-subtle); display: block;"></canvas>
 
-        <div class="blueprint-legend">
-          <div class="legend-chip">
-            <span class="legend-dot" style="background: #ef4444; box-shadow: 0 0 8px #ef4444;"></span>
+        <div style="display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; font-size: 0.75rem; font-family: var(--font-mono);">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 8px #ef4444;"></span>
             <span id="legendZoneA">Zone A: Foundation / Steel (TWL 94 W/m&sup2; &bull; Mandatory Work-Rest)</span>
           </div>
-          <div class="legend-chip">
-            <span class="legend-dot" style="background: #f59e0b; box-shadow: 0 0 8px #f59e0b;"></span>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; box-shadow: 0 0 8px #f59e0b;"></span>
             <span id="legendZoneB">Zone B: Inverter Station Trench (TWL 128 W/m&sup2; &bull; Buffer Zone)</span>
           </div>
-          <div class="legend-chip">
-            <span class="legend-dot" style="background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
             <span id="legendZoneC">Zone C: Shaded Cooling Shelters (TWL 245 W/m&sup2; &bull; Safe Continuous)</span>
           </div>
         </div>
@@ -399,13 +445,13 @@
       <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.75rem;">
         
         <!-- Anonymized Crew Table -->
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 16px; padding: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--ds-border-subtle);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 18px; padding: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle);">
             <div>
-              <h4 style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: #ffffff;">
                 Anonymized Crew Heat Strain Roster
               </h4>
-              <p style="font-size: 0.72rem; color: var(--ds-text-secondary); margin-top: 0.15rem;">
+              <p style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">
                 Small-Cell Differential Privacy Enabled (&ge;5 workers/cell)
               </p>
             </div>
@@ -414,42 +460,38 @@
             </button>
           </div>
 
-          <table class="crew-table">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
             <thead>
-              <tr>
-                <th>Crew Name</th>
-                <th>Assigned Zone</th>
-                <th>Workers</th>
-                <th>Mean PSI</th>
-                <th>Exposure Time</th>
-                <th>Mandated Action</th>
+              <tr style="text-align: left; color: var(--text-muted); font-size: 0.68rem; text-transform: uppercase;">
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Crew Name</th>
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Assigned Zone</th>
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Workers</th>
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Mean PSI</th>
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Exposure Time</th>
+                <th style="padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">Mandated Action</th>
               </tr>
             </thead>
-            <tbody id="crewTableBody">
-              <!-- Populated dynamically -->
-            </tbody>
+            <tbody id="crewTableBody"></tbody>
           </table>
         </div>
 
         <!-- Shift Rotation Plan -->
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 16px; padding: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--ds-border-subtle);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 18px; padding: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle);">
             <div>
-              <h4 style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: #ffffff;">
                 Automated Shift Rotations
               </h4>
-              <p style="font-size: 0.72rem; color: var(--ds-text-secondary); margin-top: 0.15rem;">
+              <p style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.15rem;">
                 OSHAD CoP 11.0 Schedule
               </p>
             </div>
-            <span class="status-badge-live" style="background: rgba(0, 112, 243, 0.12); color: var(--ds-blue); border-color: rgba(0, 112, 243, 0.3);">
+            <span class="brand-badge" style="background: rgba(0, 112, 243, 0.15); color: var(--accent-blue);">
               ACTIVE
             </span>
           </div>
 
-          <div id="rotationCardsContainer">
-            <!-- Populated dynamically -->
-          </div>
+          <div id="rotationCardsContainer"></div>
         </div>
 
       </div>
@@ -459,42 +501,42 @@
     <!-- VIEW 3: OSHAD REGULATORY AUDIT & KPIS -->
     <section id="metricsView" class="view-section">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.75rem;">
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 14px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2.4rem; font-weight: 800; font-family: var(--font-mono); color: var(--ds-cyan);">25.4 min</div>
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--ds-text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Proactive Warning Lead Time</div>
-          <div style="font-size: 0.72rem; color: var(--ds-safe); margin-top: 0.25rem;">+18 min vs Legacy Thresholds</div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">25.4 min</div>
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Proactive Warning Lead Time</div>
+          <div style="font-size: 0.72rem; color: var(--accent-mint); margin-top: 0.25rem;">+18 min vs Legacy Thresholds</div>
         </div>
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 14px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2.4rem; font-weight: 800; font-family: var(--font-mono); color: var(--ds-cyan);">3.8%</div>
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--ds-text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">False Alarm Rate</div>
-          <div style="font-size: 0.72rem; color: var(--ds-safe); margin-top: 0.25rem;">ISO 7933 Calibrated Precision</div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">3.8%</div>
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">False Alarm Rate</div>
+          <div style="font-size: 0.72rem; color: var(--accent-mint); margin-top: 0.25rem;">ISO 7933 Calibrated Precision</div>
         </div>
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 14px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2.4rem; font-weight: 800; font-family: var(--font-mono); color: var(--ds-cyan);">96.2%</div>
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--ds-text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Mandatory Break Adherence</div>
-          <div style="font-size: 0.72rem; color: var(--ds-safe); margin-top: 0.25rem;">Across 1,200 Shift Cycles</div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">96.2%</div>
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Mandatory Break Adherence</div>
+          <div style="font-size: 0.72rem; color: var(--accent-mint); margin-top: 0.25rem;">Across 1,200 Shift Cycles</div>
         </div>
-        <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 14px; padding: 1.5rem; text-align: center;">
-          <div style="font-size: 2.4rem; font-weight: 800; font-family: var(--font-mono); color: var(--ds-safe);">0</div>
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--ds-text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Heat Casualty Incidents</div>
-          <div style="font-size: 0.72rem; color: var(--ds-safe); margin-top: 0.25rem;">100% Zero-Harm Safety Record</div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-mint);">0</div>
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; margin-top: 0.35rem; letter-spacing: 0.05em;">Heat Casualty Incidents</div>
+          <div style="font-size: 0.72rem; color: var(--accent-mint); margin-top: 0.25rem;">100% Zero-Harm Safety Record</div>
         </div>
       </div>
 
-      <!-- Regulatory Alignment Cards -->
-      <div style="background: var(--ds-bg-100); border: 1px solid var(--ds-border-default); border-radius: 16px; padding: 1.75rem;">
-        <h3 style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 1rem;">
+      <!-- Regulatory Alignment Documentation -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: 18px; padding: 1.75rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem;">
           Abu Dhabi Department of Health &amp; OSHAD Regulatory CoP 11.0 Alignment
         </h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.85rem; color: var(--ds-text-secondary); line-height: 1.75;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.75;">
           <div>
-            <h4 style="color: #ffffff; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.5rem;">Clinical &amp; Physiological Standards</h4>
+            <h4 style="color: #ffffff; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Clinical &amp; Physiological Standards</h4>
             <p><strong>ISO 7933:2021 Ergonomics of the Thermal Environment:</strong> Mathematical analytical determination and interpretation of heat stress using Predicted Heat Strain (PHS).</p>
             <p><strong>Moran Physiological Strain Index (PSI):</strong> Universal 0-10 scale combining core body temperature elevation and cardiovascular heart-rate response.</p>
             <p><strong>Abu Dhabi OSHAD CoP 11.0:</strong> Thermal Work Limit (TWL) enforcement: automatic mandatory cessation of heavy work when TWL &lt; 115 W/m&sup2;.</p>
           </div>
           <div>
-            <h4 style="color: #ffffff; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.5rem;">Privacy &amp; Worker Rights Protections</h4>
+            <h4 style="color: #ffffff; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Privacy &amp; Worker Rights Protections</h4>
             <p><strong>Zero Disciplinary Surveillance:</strong> Strict non-attribution guarantee prohibiting individual health metric access to employers or human resources.</p>
             <p><strong>Small-Cell Differential Privacy:</strong> Supervisor reporting suppressed for worker sub-groups under 5 persons to prevent re-identification.</p>
             <p><strong>Pure Software Implementation:</strong> Zero hardware procurement or proprietary wearable lock-in; full PWA compatibility on iOS, Android, and web.</p>
@@ -505,9 +547,38 @@
 
   </main>
 
+  <!-- Interactive Site Gate NFC/QR Scanner Modal -->
+  <div class="modal-overlay" id="scannerModal">
+    <div class="scanner-modal-card">
+      <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">Site Gate Terminal Check-In</h3>
+      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.25rem;">
+        Point phone at gate NFC scanner or show worker ID QR badge to authenticate shift profile.
+      </p>
+
+      <div class="scanner-viewfinder">
+        <div class="laser-scan-line"></div>
+        <div class="badge-preview">
+          <div class="badge-avatar">WP</div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: #ffffff; margin-top: 0.35rem;">Tariq Mansoor</div>
+          <div style="font-size: 0.72rem; color: var(--accent-cyan); font-family: var(--font-mono);">ID: #WP-4109 &bull; Steel Erector</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 0.2rem;">Al Dhafra Solar Complex &bull; Gate 3</div>
+        </div>
+      </div>
+
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); font-family: var(--font-mono);" id="scannerStatusText">
+        ALIGNING OPTICAL SENSOR...
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.25rem;">
+        <button id="btnConfirmScan" class="btn-primary" style="font-size: 0.8rem;">Simulate NFC Tap</button>
+        <button id="btnCloseScanner" class="btn-secondary" style="font-size: 0.8rem;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Sonner-Style Toast Container -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=4.2"></script>
 </body>
 </html>

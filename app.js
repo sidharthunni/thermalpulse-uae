@@ -1,27 +1,27 @@
-// ThermalPulse UAE: Enterprise Biomedical Telemetry & Simulation Core
+// ThermalPulse UAE v4.2 • Core Engineering & Reactive Biomedical Engine
 // Future Health Digital Innovation Challenge (Abu Dhabi Department of Health, Microsoft, Inception/G42, MBZUAI)
-// Team ctrlX • Lead: Sidharth Unni • Pure Software Architecture
+// Team ctrlX • Lead: Sidharth Unni
 
-// 1. Calibrated Abu Dhabi Micro-Climate Database
+// 1. Two Primary Abu Dhabi Micro-Climate Profiles (Plus Secondary Reference Locations)
 const SITES_DATABASE = {
   al_dhafra: {
     key: "al_dhafra",
     name: "Al Dhafra Solar PV Complex",
     climateType: "Extreme Arid Desert Heat",
     sector: "Steel Array Mounting • Zone A",
-    ambientTemp: 48.5,
+    ambientTemp: 49.2,
     humidity: 28,
     solar: 1080,
     windSpeed: 2.2,
     workloadWatts: 360,
     zones: {
-      zoneA: { name: "Zone A: Open Desert Foundation", twl: 94, risk: "critical", desc: "Mandatory Work-Rest (15 min work / 45 min rest)" },
+      zoneA: { name: "Zone A: Open Desert Foundation", twl: 92, risk: "critical", desc: "Mandatory Work-Rest (15 min work / 45 min rest)" },
       zoneB: { name: "Zone B: Inverter Station Trench", twl: 128, risk: "buffer", desc: "Buffer Zone (30 min work / 30 min rest)" },
       zoneC: { name: "Zone C: Shaded Cooling Containers", twl: 245, risk: "safe", desc: "Active Evaporative Cooling Shelter" }
     },
     crews: [
-      { name: "Crew Alpha (Piling & Steel)", zone: "Zone A", workers: 16, psi: 7.2, exposure: "38 mins", action: "Immediate rotation to Zone C" },
-      { name: "Crew Beta (Cable Trenching)", zone: "Zone B", workers: 12, psi: 5.2, exposure: "25 mins", action: "Hydration check (500mL electrolyte)" },
+      { name: "Crew Alpha (Piling & Steel)", zone: "Zone A", workers: 16, psi: 7.8, exposure: "38 mins", action: "Immediate rotation to Zone C" },
+      { name: "Crew Beta (Cable Trenching)", zone: "Zone B", workers: 12, psi: 5.4, exposure: "25 mins", action: "Hydration check (500mL electrolyte)" },
       { name: "Crew Gamma (Inverter Cabling)", zone: "Zone B", workers: 10, psi: 4.6, exposure: "18 mins", action: "Maintain 30/30 work-rest cycle" },
       { name: "Crew Delta (Substation Fab)", zone: "Zone C", workers: 22, psi: 2.3, exposure: "55 mins", action: "Normal operations" }
     ],
@@ -29,32 +29,40 @@ const SITES_DATABASE = {
       { crew: "Crew Alpha", time: "Rotate in 6 mins", text: "Regime: 15 min work / 45 min rest. Dispatch Crew Delta relief.", urgent: true },
       { crew: "Crew Beta", time: "Rotate in 20 mins", text: "Scheduled hydration break at Station 3.", urgent: false },
       { crew: "Crew Gamma", time: "On Schedule", text: "Stable physiological response.", urgent: false }
-    ]
+    ],
+    voiceAlerts: {
+      en: "Al Dhafra Desert Solar Array alert. Ambient temperature 49.2 degrees. High radiant heat load detected. Mandatory shaded rest required in 12 minutes. Drink 500 milliliters of cold electrolyte solution immediately.",
+      ar: "تنبيه مجمع الظفرة للطاقة الشمسية. درجة الحرارة 49.2 درجة مئوية. رصد إجهاد حراري مرتفع. استراحة إلزامية خلال 12 دقيقة. يرجى شرب 500 مللتر من محلول الترطيب فوراً."
+    }
   },
   masdar: {
     key: "masdar",
     name: "Masdar City Sustainable Construction",
     climateType: "Shaded Passive Urban Zone",
     sector: "Prefab Modular Fitout • Zone B",
-    ambientTemp: 40.2,
-    humidity: 44,
-    solar: 680,
-    windSpeed: 3.4,
-    workloadWatts: 310,
+    ambientTemp: 38.5,
+    humidity: 45,
+    solar: 650,
+    windSpeed: 3.6,
+    workloadWatts: 270,
     zones: {
-      zoneA: { name: "Zone A: External Facade Installation", twl: 122, risk: "buffer", desc: "Buffer Zone (30 min work / 30 min rest)" },
-      zoneB: { name: "Zone B: Podium Plaza Courtyard", twl: 150, risk: "buffer", desc: "Buffer Zone (45 min work / 15 min rest)" },
+      zoneA: { name: "Zone A: External Facade Assembly", twl: 145, risk: "buffer", desc: "Buffer Zone (30 min work / 30 min rest)" },
+      zoneB: { name: "Zone B: Podium Plaza Courtyard", twl: 165, risk: "safe", desc: "Buffer Zone (45 min work / 15 min rest)" },
       zoneC: { name: "Zone C: Shaded Wind-Tower Atrium", twl: 260, risk: "safe", desc: "Wind-Tower Passive Shaded Zone" }
     },
     crews: [
-      { name: "Crew 1 (Glazing & Cladding)", zone: "Zone A", workers: 14, psi: 5.6, exposure: "30 mins", action: "Shaded break scheduled in 15 mins" },
-      { name: "Crew 2 (Podium Structural)", zone: "Zone B", workers: 18, psi: 4.6, exposure: "22 mins", action: "Electrolyte replenishment delivered" },
+      { name: "Crew 1 (Glazing & Cladding)", zone: "Zone A", workers: 14, psi: 4.8, exposure: "30 mins", action: "Shaded break scheduled in 20 mins" },
+      { name: "Crew 2 (Podium Structural)", zone: "Zone B", workers: 18, psi: 3.4, exposure: "22 mins", action: "Electrolyte replenishment delivered" },
       { name: "Crew 3 (Internal MEP Fitout)", zone: "Zone C", workers: 26, psi: 2.1, exposure: "60 mins", action: "Standard shift cadence" }
     ],
     rotations: [
-      { crew: "Crew 1", time: "Rotate in 15 mins", text: "Relocate to Passive Wind Tower courtyard.", urgent: false },
-      { crew: "Crew 2", time: "Rotate in 35 mins", text: "Normal 45/15 work-rest cycle.", urgent: false }
-    ]
+      { crew: "Crew 1", time: "Rotate in 20 mins", text: "Relocate to Passive Wind Tower courtyard.", urgent: false },
+      { crew: "Crew 2", time: "Rotate in 40 mins", text: "Normal 45/15 work-rest cycle.", urgent: false }
+    ],
+    voiceAlerts: {
+      en: "Masdar City construction sector. Temperature 38.5 degrees. Normal thermal buffer active. Maintain scheduled 250 milliliter hydration. Proceed to passive wind-tower cooling zone in 25 minutes.",
+      ar: "تنبيه مدينة مصدر الإنشائية. درجة الحرارة 38.5 درجة. الحالة مستقرة. يرجى شرب 250 مللتر من الماء والتوجه لمنطقة التبريد الهوائي خلال 25 دقيقة."
+    }
   },
   khalifa_port: {
     key: "khalifa_port",
@@ -67,180 +75,162 @@ const SITES_DATABASE = {
     windSpeed: 1.6,
     workloadWatts: 410,
     zones: {
-      zoneA: { name: "Zone A: Open Quay Container Yard", twl: 85, risk: "critical", desc: "Mandatory Work-Rest (15 min work / 45 min rest)" },
-      zoneB: { name: "Zone B: Rail Freight Staging", twl: 110, risk: "critical", desc: "Buffer / Early AC Transition" },
+      zoneA: { name: "Zone A: Open Quay Container Yard", twl: 70, risk: "critical", desc: "Mandatory Immediate Work-Rest (15/45)" },
+      zoneB: { name: "Zone B: Rail Freight Staging", twl: 105, risk: "critical", desc: "Buffer / Early AC Transition" },
       zoneC: { name: "Zone C: Chilled AC Terminal Shed", twl: 250, risk: "safe", desc: "Full Chilled AC Shelter" }
     },
     crews: [
-      { name: "Crew Port Alpha (Quayside)", zone: "Zone A", workers: 20, psi: 8.8, exposure: "34 mins", action: "Mandatory immediate AC transfer" },
+      { name: "Crew Port Alpha (Quayside)", zone: "Zone A", workers: 20, psi: 9.8, exposure: "34 mins", action: "Mandatory immediate AC transfer" },
       { name: "Crew Port Beta (Rail Staging)", zone: "Zone B", workers: 14, psi: 6.8, exposure: "22 mins", action: "Cold water hydration check" },
       { name: "Crew Port Gamma (Gantry Logistics)", zone: "Zone C", workers: 15, psi: 2.4, exposure: "45 mins", action: "Optimal condition" }
     ],
     rotations: [
-      { crew: "Crew Port Alpha", time: "Rotate in 4 mins", text: "High humidity halts evaporative sweat cooling. Immediate AC shift mandated.", urgent: true },
+      { crew: "Crew Port Alpha", time: "Rotate in 3 mins", text: "High humidity halts evaporative sweat cooling. Immediate AC shift mandated.", urgent: true },
       { crew: "Crew Port Beta", time: "Rotate in 14 mins", text: "Scheduled electrolyte hydration break.", urgent: false }
-    ]
+    ],
+    voiceAlerts: {
+      en: "Khalifa Port maritime warning. Critical humidity 84 percent. Evaporative cooling failure detected. Cease heavy rigging operations immediately and report to Air Conditioned Station 2.",
+      ar: "تحذير عاجل من ميناء خليفة. نسبة الرطوبة 84 بالمائة. توقف عن العمل الشاق فوراً وتوجه لغرفة التبريد المكيفة رقم 2."
+    }
   },
   saadiyat: {
     key: "saadiyat",
     name: "Saadiyat Cultural District Infrastructure",
     climateType: "Ventilated Coastal Marine Breeze",
     sector: "Subterranean Dome Inspection • Zone C",
-    ambientTemp: 37.5,
-    humidity: 52,
-    solar: 790,
+    ambientTemp: 37.0,
+    humidity: 55,
+    solar: 780,
     windSpeed: 4.8,
     workloadWatts: 240,
     zones: {
-      zoneA: { name: "Zone A: Exposed Dome Geometry", twl: 135, risk: "buffer", desc: "Buffer Zone (30 min work / 30 min rest)" },
-      zoneB: { name: "Zone B: Marine Canal Perimeter", twl: 155, risk: "safe", desc: "Buffer Zone with Sea Breeze" },
-      zoneC: { name: "Zone C: Subterranean Gallery Chamber", twl: 270, risk: "safe", desc: "Sub-surface Temp-Controlled Pod" }
+      zoneA: { name: "Zone A: Exposed Dome Geometry", twl: 140, risk: "buffer", desc: "Buffer Zone (30 min work / 30 min rest)" },
+      zoneB: { name: "Zone B: Marine Canal Perimeter", twl: 160, risk: "safe", desc: "Buffer Zone with Sea Breeze" },
+      zoneC: { name: "Zone C: Subterranean Gallery Chamber", twl: 275, risk: "safe", desc: "Sub-surface Temp-Controlled Pod" }
     },
     crews: [
-      { name: "Crew Dome (Geodesic Steel)", zone: "Zone A", workers: 12, psi: 4.8, exposure: "28 mins", action: "Electrolyte misting active" },
-      { name: "Crew Marine (Sea-Wall Piling)", zone: "Zone B", workers: 15, psi: 3.4, exposure: "25 mins", action: "Normal shift buffer" },
+      { name: "Crew Dome (Geodesic Steel)", zone: "Zone A", workers: 12, psi: 4.6, exposure: "28 mins", action: "Electrolyte misting active" },
+      { name: "Crew Marine (Sea-Wall Piling)", zone: "Zone B", workers: 15, psi: 3.2, exposure: "25 mins", action: "Normal shift buffer" },
       { name: "Crew Subterranean (Gallery)", zone: "Zone C", workers: 30, psi: 1.8, exposure: "65 mins", action: "Optimal temperature" }
     ],
     rotations: [
       { crew: "Crew Dome", time: "Rotate in 25 mins", text: "Standard shaded rest cycle.", urgent: false },
       { crew: "Crew Marine", time: "On Schedule", text: "Wind speed 4.8 m/s provides active convective cooling.", urgent: false }
-    ]
+    ],
+    voiceAlerts: {
+      en: "Saadiyat Island marine sector. Ambient temperature 37 degrees with active sea breeze. Thermal equilibrium is safe. Scheduled water break in 40 minutes.",
+      ar: "تنبيه منطقة السعديات. درجة الحرارة 37 درجة مع رياح بحرية معتدلة. التوازن الحراري آمن. موعد استراحة الماء القادمة خلال 40 دقيقة."
+    }
   }
 };
 
-// 2. Multilingual Dictionary (6 Languages)
+// 2. Complete Bilingual Dictionary (English & Arabic)
 const translations = {
   en: {
+    brandTitle: "ThermalPulse UAE",
+    brandBadge: "DoH Challenge [07]",
+    brandSubtitle: "Abu Dhabi Department of Health • Microsoft • Inception / G42 • MBZUAI",
+    tabWorker: "Worker Field PWA & Lab",
+    tabSupervisor: "Supervisor Command Center",
+    tabMetrics: "OSHAD Audit & KPIs",
+    sectorSelect: "Abu Dhabi Location:",
+    lblTemp: "Ambient Temp",
+    lblHumidity: "Humidity",
+    lblSolar: "Direct Solar",
+    lblWbgt: "WBGT Index",
+    lblTwl: "OSHAD TWL",
+    btnHeatSpike: "Simulate Extreme Surge (+3°C)",
+    tourTitle: "Interactive 2-Minute Solution Auto-Tour",
+    tourDesc: "Experience how ThermalPulse UAE dynamically protects frontline personnel from acute heat stress 25 minutes prior to clinical onset.",
+    btnTour: "Run Guided Auto-Tour",
+    btnReset: "Reset to Baseline",
     workerLabel: "Assigned Worker: #WP-4109",
-    privacyShield: "Privacy Shield Active",
+    gateSyncBtn: "Scan Gate NFC/QR",
+    gateStatusPending: "SITE GATE: SYNC PENDING",
+    gateStatusSynced: "EDGE SYNC ONLINE • DOH MESH LINKED",
+    psiLabel: "Physiological Strain Index (Moran PSI)",
     statusSafe: "SAFE THERMAL EQUILIBRIUM",
     statusBuffer: "MODERATE THERMAL STRAIN",
     statusCritical: "CRITICAL THERMAL STRAIN",
+    lblCoreTemp: "Core Temp",
+    lblHeartRate: "Heart Rate",
+    lblMetabolic: "Metabolic Load",
     alertTitleSafe: "Safe Thermal Equilibrium Maintained",
     alertDescSafe: "Worker metabolic heat dissipation within normal physiological limits. Maintain scheduled hydration.",
     alertTitleBuffer: "Early Warning: High Thermal Load Detected",
     alertDescBuffer: "Predictive thermal strain forecast indicates critical threshold reached in {leadTime} minutes without shaded rest and electrolyte hydration.",
     alertTitleCritical: "CRITICAL ALERT: CEASE HEAVY WORK IMMEDIATELY",
-    alertDescCritical: "Core body temperature elevation projected to exceed 38.5&deg;C. Mandatory immediate transition to cooling station.",
+    alertDescCritical: "Core body temperature elevation projected to exceed 38.5°C. Mandatory immediate transition to cooling station.",
     voiceBtnText: "Play Audio Safety Alert (Voice)",
     lblHydration: "Hydration Target",
     lblBreak: "Mandatory Rest",
-    drinkTimer: "Next 250mL in: 08:42",
-    breakTimer: "Required in: {leadTime} mins",
-    voiceSpokenSafe: "Thermal conditions are currently stable. Remember to drink water regularly.",
-    voiceSpokenBuffer: "Caution. High thermal heat strain detected. Please drink 250 milliliters of electrolyte water and proceed to the shaded cooling station in {leadTime} minutes.",
-    voiceSpokenCritical: "Emergency warning. Critical thermal limit reached. Cease heavy work immediately and report to the air-conditioned cooling shelter.",
+    drinkTimer: "Scheduled Drink: 08:42",
+    breakTimer: "Required in: {time}",
+    breakRegime: "OSHAD CoP 11.0 Standard",
+    labTitle: "Biomedical Simulation Laboratory",
+    labSubtitle: "Adjust environmental variables or metabolic workload to observe instantaneous algorithmic reactions across Moran PSI, Stull WBGT, and OSHAD TWL.",
+    lblSliderTemp: "Ambient Temperature (°C)",
+    lblSliderHumidity: "Relative Humidity (%)",
+    lblSliderWorkload: "Worker Metabolic Workload (Watts)",
+    mathHeader: "Analytical Model Output (ISO 7933 PHS • Moran PSI • OSHAD TWL)",
+    lblSweatRate: "Predicted Sweat Loss Rate:",
+    lblSafeExposure: "Predicted Safe Exposure Lead:",
+    lblEmax: "Evaporative Heat Capacity:",
+    lblOshadRegime: "OSHAD Regulatory Regime:",
     privacyDetail: "Worker-First Governance Guarantee: Your individual biometric signals are processed on-device. Supervisors receive only anonymized crew-level risk averages. Zero data is shared for disciplinary or employment evaluation under Abu Dhabi DoH & OSHAD standards."
   },
   ar: {
+    brandTitle: "ثيرمال بالس الإمارات",
+    brandBadge: "تحدي دائرة الصحة [07]",
+    brandSubtitle: "دائرة الصحة - أبوظبي • مايكروسوفت • G42 • جامعة محمد بن زايد للذكاء الاصطناعي",
+    tabWorker: "تطبيق العامل الميداني والمختبر",
+    tabSupervisor: "مركز قيادة المشرف",
+    tabMetrics: "سجل الامتثال والمؤشرات",
+    sectorSelect: "موقع المشروع في أبوظبي:",
+    lblTemp: "حرارة الجو",
+    lblHumidity: "الرطوبة",
+    lblSolar: "الإشعاع الشمسي",
+    lblWbgt: "مؤشر حرارة WBGT",
+    lblTwl: "حد العمل الحراري OSHAD",
+    btnHeatSpike: "محاكاة موجة حر مفاجئة (+3°م)",
+    tourTitle: "جولة تفاعلية مدتها دقيقتان للحل",
+    tourDesc: "شاهد كيف يحمي نظام ثيرمال بالس العاملين من الإجهاد الحراري قبل 25 دقيقة من حدوث الخطر الطبي.",
+    btnTour: "بدء الجولة التلقائية",
+    btnReset: "إعادة ضبط الأساس",
     workerLabel: "العامل المخصص: #WP-4109",
-    privacyShield: "درع الخصوصية مفعل",
+    gateSyncBtn: "مسح رمز البوابة NFC",
+    gateStatusPending: "بوابة الموقع: قيد المزامنة",
+    gateStatusSynced: "المزامنة الحافة متصلة • شبكة الصحة مفعلة",
+    psiLabel: "مؤشر الإجهاد الفسيولوجي (Moran PSI)",
     statusSafe: "توازن حراري آمن",
-    statusBuffer: "إجهاد حراري معتدل",
-    statusCritical: "إجهاد حراري حرج - خطر",
+    statusBuffer: "إجهاد حراري معتدل (منطقة حذر)",
+    statusCritical: "إجهاد حراري حرج - خطر شديد",
+    lblCoreTemp: "حرارة الجسم",
+    lblHeartRate: "نبض القلب",
+    lblMetabolic: "الحمل الأيضي",
     alertTitleSafe: "الحالة الحرارية مستقرة وآمنة",
     alertDescSafe: "تبديد الحرارة ضمن الحدود الفسيولوجية الطبيعية. يرجى الحفاظ على الترطيب الدوري.",
     alertTitleBuffer: "إنذار مبكر: رصد ارتفاع الحمل الحراري",
     alertDescBuffer: "تشير التوقعات إلى الوصول للحد الحرج خلال {leadTime} دقيقة دون راحة مظللة وشرب السوائل.",
     alertTitleCritical: "تنبيه طارئ: توقف عن العمل الشاق فوراً",
-    alertDescCritical: "من المتوقع تجاوز درجة حرارة الجسم 38.5 درجة. التوجه الإلزامي فوراً لمحطة التبريد.",
+    alertDescCritical: "من المتوقع تجاوز حرارة الجسم 38.5 درجة. التوجه الإلزامي فوراً لمحطة التبريد.",
     voiceBtnText: "تشغيل التنبيه الصوتي (باللغة العربية)",
     lblHydration: "هدف الترطيب المائي",
     lblBreak: "الراحة الإلزامية",
-    drinkTimer: "جرعة 250 مل القادمة خلال: 08:42",
-    breakTimer: "مطلوبة خلال: {leadTime} دقيقة",
-    voiceSpokenSafe: "الظروف الحرارية مستقرة حالياً. تذكر شرب الماء بانتظام.",
-    voiceSpokenBuffer: "تنبيه وقائي. تم رصد إجهاد حراري متصاعد. يرجى شرب مائتين وخمسين مليلتراً من الماء والتوجه لمنطقة الاستراحة خلال {leadTime} دقيقة.",
-    voiceSpokenCritical: "تحذير عاجل. تم الوصول للحد الحراري الخطر. توقف عن العمل الشاق فوراً وتوجه لغرفة التبريد المكيفة.",
+    drinkTimer: "الجرعة القادمة: 08:42",
+    breakTimer: "مطلوبة خلال: {time}",
+    breakRegime: "معيار OSHAD CoP 11.0",
+    labTitle: "مختبر المحاكاة الطبية الحيوية",
+    labSubtitle: "اضبط المتغيرات البيئية أو معدل المجهود لملاحظة التفاعل الرياضي اللحظي لنماذج Moran PSI و OSHAD TWL.",
+    lblSliderTemp: "درجة الحرارة المحيطة (°م)",
+    lblSliderHumidity: "الرطوبة النسبية (%)",
+    lblSliderWorkload: "المجهود البدني للعامل (واط)",
+    mathHeader: "المخرجات الرياضية للنموذج التحليلي (ISO 7933 PHS • Moran PSI)",
+    lblSweatRate: "معدل فقدان العرق المتوقع:",
+    lblSafeExposure: "فترة الأمان الوقائية المتبقية:",
+    lblEmax: "سعة التبخر التبريدي القصوى:",
+    lblOshadRegime: "نظام الراحة المعتمد في OSHAD:",
     privacyDetail: "ضمان حوكمة العامل أولاً: تتم معالجة بياناتك الحيوية محلياً على جهازك. يتلقى المشرفون فقط المعدلات المجمعة للفرق. لا تتم مشاركة أي بيانات للتقييم الوظيفي وفقاً لمعايير دائرة الصحة في أبوظبي."
-  },
-  ur: {
-    workerLabel: "مقرر شدہ کارکن: #WP-4109",
-    privacyShield: "پرائیویسی شیلڈ فعال",
-    statusSafe: "محفوظ تھرمل حالت",
-    statusBuffer: "درمیانہ گرمی کا دباؤ",
-    statusCritical: "انتہائی گرمی کا خطرہ",
-    alertTitleSafe: "حرارتی توازن برقرار ہے",
-    alertDescSafe: "جسمانی درجہ حرارت معمول کے مطابق ہے۔ پانی کا باقاعدہ استعمال جاری رکھیں۔",
-    alertTitleBuffer: "ابتدائی انتباہ: گرمی کا دباؤ بڑھ رہا ہے",
-    alertDescBuffer: "پیش گوئی کے مطابق آرام اور پانی کے بغیر {leadTime} منٹ میں خطرہ پیدا ہو سکتا ہے۔",
-    alertTitleCritical: "ہنگامی انتباہ: فوری طور پر کام بند کریں",
-    alertDescCritical: "جسمانی درجہ حرارت 38.5 ڈگری سے بڑھنے کا خطرہ ہے۔ فوری طور پر کولنگ شیلٹر پہنچیں۔",
-    voiceBtnText: "آڈیو الرٹ سنیں (اردو)",
-    lblHydration: "پانی کا ہدف",
-    lblBreak: "لازمی وقفہ",
-    drinkTimer: "اگلا 250 ملی لیٹر: 08:42 میں",
-    breakTimer: "{leadTime} منٹ میں درکار",
-    voiceSpokenSafe: "موسمی حالات قابو میں ہیں۔ باقاعدگی سے پانی پیتے رہیں۔",
-    voiceSpokenBuffer: "توجہ فرمائیں۔ گرمی کا دباؤ بڑھ رہا ہے۔ دو سو پچاس ملی لیٹر پانی پیئیں اور {leadTime} منٹ میں سائے میں جائیں۔",
-    voiceSpokenCritical: "ہنگامی وارننگ۔ گرمی کی انتہائی خطرناک حد ہو چکی ہے۔ فوری طور پر کام روک دیں اور ایئر کنڈیشنڈ کمرے میں جائیں۔",
-    privacyDetail: "کارکن کی رازداری کی ضمانت: آپ کا بائیو میٹرک ڈیٹا آپ کے فون پر محفوظ رہتا ہے۔ سپروائزرز کو صرف مجموعی اوسط دکھائی جاتی ہے۔"
-  },
-  hi: {
-    workerLabel: "आवंटित श्रमिक: #WP-4109",
-    privacyShield: "गोपनीयता शील्ड सक्रिय",
-    statusSafe: "सुरक्षित तापीय संतुलन",
-    statusBuffer: "मध्यम ताप तनाव",
-    statusCritical: "गंभीर ताप तनाव - कार्य रोकें",
-    alertTitleSafe: "सामान्य तापीय स्थिति",
-    alertDescSafe: "शारीरिक ताप सामान्य सीमा में है। नियमित पानी पीते रहें।",
-    alertTitleBuffer: "प्रारंभिक चेतावनी: उच्च ताप तनाव",
-    alertDescBuffer: "पूर्वानुमान के अनुसार बिना आराम {leadTime} मिनट में स्थिति गंभीर हो सकती है।",
-    alertTitleCritical: "आपातकालीन चेतावनी: तुरंत भारी कार्य रोकें",
-    alertDescCritical: "शरीर का तापमान 38.5 डिग्री से ऊपर जाने की संभावना है। तुरंत कूलिंग शेल्टर जाएं।",
-    voiceBtnText: "ऑडियो सुरक्षा चेतावनी सुनें (हिन्दी)",
-    lblHydration: "जलयोजन लक्ष्य",
-    lblBreak: "अनिवार्य विश्राम",
-    drinkTimer: "अगला 250ml: 08:42 में",
-    breakTimer: "{leadTime} मिनट में आवश्यक",
-    voiceSpokenSafe: "तापीय स्थिति सामान्य है। नियमित पानी पीते रहें।",
-    voiceSpokenBuffer: "सावधान। उच्च ताप तनाव दर्ज किया गया है। कृपया ढाई सौ मिलीलीटर पानी पिएं और {leadTime} मिनट में विश्राम स्थल जाएं।",
-    voiceSpokenCritical: "आपातकालीन चेतावनी। गंभीर ताप तनाव सीमा पार हो चुकी है। तुरंत भारी काम बंद करें और वातानुकूलित शेल्टर में जाएं।",
-    privacyDetail: "श्रमिक-प्रथम गारंटी: आपका बायोमेट्रिक डेटा स्थानीय रूप से प्रोसेस होता है। पर्यवेक्षकों को केवल सामूहिक औसत मिलता है।"
-  },
-  bn: {
-    workerLabel: "বরাদ্দকৃত কর্মী: #WP-4109",
-    privacyShield: "গোপনীয়তা ঢাল সক্রিয়",
-    statusSafe: "নিরাপদ তাপীয় ভারসাম্য",
-    statusBuffer: "মাঝারি তাপের চাপ",
-    statusCritical: "মারাত্মক তাপের চাপ - অবিলম্বে কাজ বন্ধ করুন",
-    alertTitleSafe: "নিরাপদ তাপীয় অবস্থা",
-    alertDescSafe: "শরীরের তাপমাত্রা স্বাভাবিক সীমার মধ্যে রয়েছে। পর্যাপ্ত পানি পান করুন।",
-    alertTitleBuffer: "পূর্ব সতর্কবার্তা: অতিরিক্ত তাপের চাপ",
-    alertDescBuffer: "বিশ্রাম এবং পানি ছাড়া {leadTime} মিনিটের মধ্যে অবস্থা জটিল হতে পারে।",
-    alertTitleCritical: "জরুরি সতর্কবার্তা: অবিলম্বে ভারী কাজ বন্ধ করুন",
-    alertDescCritical: "শরীরের তাপমাত্রা ৩৮.৫ ডিগ্রির উপরে যাওয়ার আশঙ্কা। অবিলম্বে শীতল আশ্রয়কেন্দ্রে যান।",
-    voiceBtnText: "ভয়েস অ্যালার্ট শুনুন (বাংলা)",
-    lblHydration: "পানি পানের লক্ষ্য",
-    lblBreak: "বাধ্যতামূলক বিরতি",
-    drinkTimer: "পরবর্তী ২৫০ মিলি: ০৮:৪২ মিনিটে",
-    breakTimer: "{leadTime} মিনিটে প্রয়োজন",
-    voiceSpokenSafe: "তাপমাত্রা স্বাভাবিক রয়েছে। নিয়মিত পানি পান করুন।",
-    voiceSpokenBuffer: "সতর্কতা। উচ্চ তাপের চাপ ধরা পড়েছে। দয়া করে ২৫০ মিলি পানি পান করুন এবং {leadTime} মিনিটের মধ্যে ছায়াযুক্ত স্থানে যান।",
-    voiceSpokenCritical: "জরুরি সতর্কতা। বিপজ্জনক তাপমাত্রায় পৌঁছেছে। অবিলম্বে কাজ বন্ধ করুন এবং শীতল আশ্রয়কেন্দ্রে যান।",
-    privacyDetail: "কর্মী অধিকার নিশ্চয়তা: আপনার শারীরিক সংকেত ফোনে সুরক্ষিত থাকে। সুপারভাইজার কেবল সামগ্রিক গড় দেখতে পান।"
-  },
-  tl: {
-    workerLabel: "Nakatalagang Manggagawa: #WP-4109",
-    privacyShield: "Aktibo ang Privacy Shield",
-    statusSafe: "LIGTAS NA THERMAL BALANCE",
-    statusBuffer: "KATAMTAMANG INIT NG KATAWAN",
-    statusCritical: "MAPANGANIB NA INIT - ITIGIL ANG TRABAHO",
-    alertTitleSafe: "Ligtas na Kondisyon ng Katawan",
-    alertDescSafe: "Normal ang temperatura ng katawan. Panatilihin ang regular na pag-inom ng tubig.",
-    alertTitleBuffer: "Paunang Babala: Tumataas na Init",
-    alertDescBuffer: "Ayon sa forecast, aabot sa kritikal na antas sa loob ng {leadTime} minuto kung walang pahinga at tubig.",
-    alertTitleCritical: "EMERGENCY: ITIGIL AGAD ANG MABIGAT NA TRABAHO",
-    alertDescCritical: "Lalampas ang temperatura sa 38.5°C. Pumunta agad sa air-conditioned cooling shelter.",
-    voiceBtnText: "Pakinggan ang Audio Alert (Tagalog)",
-    lblHydration: "Target sa Pag-inom",
-    lblBreak: "Kailangang Pahinga",
-    drinkTimer: "Susunod na 250mL sa: 08:42",
-    breakTimer: "Kailangan sa: {leadTime} mins",
-    voiceSpokenSafe: "Ligtas ang temperatura sa ngayon. Uminom ng tubig nang regular.",
-    voiceSpokenBuffer: "Mag-ingat. Mataas ang heat strain. Uminom ng dalawandaan at limampung mililitro ng tubig at magpahinga sa loob ng {leadTime} minuto.",
-    voiceSpokenCritical: "Emergency babala. Mapanganib na ang init. Itigil agad ang trabaho at magtungo sa malamig na shelter.",
-    privacyDetail: "Garantiyang Proteksyon: Ang iyong biometric data ay napo-proseso sa iyong device. Walang personal na data ang ibinubunyag sa supervisor."
   }
 };
 
@@ -249,26 +239,59 @@ const state = {
   currentLang: 'en',
   currentView: 'workerView',
   currentSiteKey: 'al_dhafra',
-  ambientTemp: 48.5,
+  ambientTemp: 49.2,
   humidity: 28,
   workloadWatts: 360,
   windSpeed: 2.2,
   solar: 1080,
+  isGateSynced: false,
   isSurgeActive: false,
   tourRunning: false,
+  waterLoggedML: 500,
+  waterTargetML: 750,
+  restSecondsLeft: 1080, // 18 minutes
   
-  // Computed outputs
-  wbgt: 38.4,
-  twl: 123,
-  psi: 7.2,
+  // Computed values
+  wbgt: 38.6,
+  twl: 92,
+  targetPsi: 7.8,
+  currentPsi: 7.8,
+  displayedAngle: 50.4, // -90 to +90
   coreTemp: 38.7,
-  heartRate: 151,
-  leadTimeMins: 13,
-  sweatRatePerHour: 1170
+  heartRate: 154,
+  leadTimeMins: 12,
+  sweatRatePerHour: 1240
 };
 
-// 4. Clinical & Micro-Climate Solvers
-// Stull (2011) Wet Bulb & Full Outdoor WBGT
+// Web Audio API Context for Chimes & Sound Synthesis
+let audioCtx = null;
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playElectronicBeep(freq = 880, duration = 0.12, type = 'sine') {
+  try {
+    const ctx = getAudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+// 4. Mathematical Solvers (Stull WBGT, OSHAD TWL, Moran PSI, ISO 7933)
 function computeWBGT(ta, rh, solar, wind) {
   const tw = (ta * Math.atan(0.151977 * Math.sqrt(rh + 8.313659)) 
             + Math.atan(ta + rh) 
@@ -276,18 +299,15 @@ function computeWBGT(ta, rh, solar, wind) {
             + 0.00391838 * Math.pow(rh, 1.5) * Math.atan(0.023101 * rh) 
             - 4.686035);
   const tg = ta + (solar / 1000.0) * 12.0 / Math.sqrt(Math.max(1.0, wind));
-  const wbgt = 0.7 * tw + 0.2 * tg + 0.1 * ta;
-  return parseFloat(wbgt.toFixed(1));
+  return parseFloat((0.7 * tw + 0.2 * tg + 0.1 * ta).toFixed(1));
 }
 
-// Abu Dhabi OSHAD Thermal Work Limit (TWL in W/m^2)
 function computeTWL(temp, humidity, wind) {
   const vp = (humidity / 100.0) * 6.1078 * Math.exp((17.27 * temp) / (temp + 237.3));
   let twl = 280.0 - (2.6 * temp) - (1.8 * vp) + (18.0 * Math.sqrt(Math.max(0.5, wind)));
-  return Math.max(70, Math.round(twl));
+  return Math.max(65, Math.round(twl));
 }
 
-// Moran's Physiological Strain Index (0 - 10)
 function computeMoranPSI(coreTemp, heartRate, t0 = 36.8, hr0 = 70.0) {
   const tFraction = (coreTemp - t0) / (39.5 - t0);
   const hrFraction = (heartRate - hr0) / (180.0 - hr0);
@@ -295,7 +315,6 @@ function computeMoranPSI(coreTemp, heartRate, t0 = 36.8, hr0 = 70.0) {
   return Math.min(10.0, Math.max(0.0, parseFloat(psi.toFixed(1))));
 }
 
-// Full Biomedical Simulation Solver
 function solveBiomedicalState() {
   const t = state.ambientTemp;
   const rh = state.humidity;
@@ -303,29 +322,26 @@ function solveBiomedicalState() {
   const wind = state.windSpeed;
   const solar = state.solar;
 
-  // Environmental Metrics
   state.twl = computeTWL(t, rh, wind);
   state.wbgt = computeWBGT(t, rh, solar, wind);
 
-  // Calibrated physiological strain response (ISO 7933 PHS)
-  const envStress = (t - 30.0) * 0.05 + (rh - 30.0) * 0.012;
-  const metabolicStress = (w - 200.0) * 0.0038;
+  // Environmental stress accumulation
+  const envStress = (t - 30.0) * 0.052 + (rh - 30.0) * 0.014;
+  const metabolicStress = (w - 200.0) * 0.004;
   const windRelief = Math.min(0.35, (wind - 1.5) * 0.06);
   const netStress = Math.max(0.0, envStress + metabolicStress - windRelief);
 
-  state.coreTemp = parseFloat((37.0 + netStress * 1.15).toFixed(1));
-  state.heartRate = Math.min(185, Math.round(72.0 + netStress * 54.0));
-  state.psi = computeMoranPSI(state.coreTemp, state.heartRate);
+  state.coreTemp = parseFloat((37.0 + netStress * 1.2).toFixed(1));
+  state.heartRate = Math.min(185, Math.round(72.0 + netStress * 56.0));
+  state.targetPsi = computeMoranPSI(state.coreTemp, state.heartRate);
 
-  // Predictive lead time calculation (time until 38.6°C core temp)
   if (state.coreTemp >= 38.6) {
     state.leadTimeMins = Math.max(4, Math.round(15.0 - (state.coreTemp - 38.6) * 18.0));
   } else {
     state.leadTimeMins = Math.max(8, Math.round((38.6 - state.coreTemp) * 45.0));
   }
 
-  // Estimated Sweat Rate
-  state.sweatRatePerHour = Math.round(320.0 + netStress * 580.0);
+  state.sweatRatePerHour = Math.round(320.0 + netStress * 620.0);
 }
 
 // 5. DOM References
@@ -339,6 +355,11 @@ const btnStartTour = document.getElementById('btnStartTour');
 const btnVoiceAlert = document.getElementById('btnVoiceAlert');
 const btnExportAudit = document.getElementById('btnExportAudit');
 const toastContainer = document.getElementById('toastContainer');
+const gateStatusBadge = document.getElementById('gateStatusBadge');
+const btnOpenScanner = document.getElementById('btnOpenScanner');
+const scannerModal = document.getElementById('scannerModal');
+const btnConfirmScan = document.getElementById('btnConfirmScan');
+const btnCloseScanner = document.getElementById('btnCloseScanner');
 
 // Sliders
 const sliderTemp = document.getElementById('sliderTemp');
@@ -372,18 +393,74 @@ function showToast(message) {
   }, 2600);
 }
 
-// 6. UI Synchronization Engine
+// 6. Living Speedometer Needle (DepthWizard-Style Continuous Micro-Motion Loop)
+let animFrameId = null;
+function startLivingDialLoop() {
+  function renderDial(timestamp) {
+    // Smooth exponential approach from currentPsi to targetPsi
+    state.currentPsi += (state.targetPsi - state.currentPsi) * 0.08;
+
+    // DepthWizard living micro-oscillation (continuous gentle breathing motion)
+    const livingJitter = Math.sin(timestamp * 0.0035) * 0.85;
+    const baseAngle = -90 + (state.currentPsi / 10.0) * 180.0;
+    const finalAngle = baseAngle + livingJitter;
+
+    if (gaugeNeedle) {
+      gaugeNeedle.setAttribute('transform', `rotate(${finalAngle.toFixed(2)} 150 155)`);
+    }
+
+    // Dynamic glowing arc fill
+    const dashOffset = Math.max(0, Math.min(330, 330 - (state.currentPsi / 10.0) * 330));
+    if (gaugeActiveArc) {
+      gaugeActiveArc.style.strokeDashoffset = dashOffset.toFixed(1);
+      if (state.currentPsi >= 7.5) {
+        gaugeActiveArc.style.stroke = '#ef4444';
+      } else if (state.currentPsi >= 4.5) {
+        gaugeActiveArc.style.stroke = '#f59e0b';
+      } else {
+        gaugeActiveArc.style.stroke = '#10b981';
+      }
+    }
+
+    animFrameId = requestAnimationFrame(renderDial);
+  }
+  animFrameId = requestAnimationFrame(renderDial);
+}
+
+// 7. Update All UI Elements
 function updateAllUI() {
   solveBiomedicalState();
 
   const site = SITES_DATABASE[state.currentSiteKey];
   const t = translations[state.currentLang] || translations.en;
 
-  // 1. Telemetry Bar
+  // 1. Telemetry Values & Physical Micro-Gauge Bars
   document.getElementById('valTemp').textContent = state.ambientTemp.toFixed(1);
   document.getElementById('valHumidity').textContent = Math.round(state.humidity);
   document.getElementById('valSolar').textContent = state.solar.toLocaleString();
   document.getElementById('valWbgt').textContent = state.wbgt.toFixed(1);
+
+  // Micro gauge bar fills
+  const tempPct = Math.min(100, Math.max(0, ((state.ambientTemp - 30) / 25) * 100));
+  const humPct = Math.min(100, Math.max(0, state.humidity));
+  const solPct = Math.min(100, Math.max(0, (state.solar / 1200) * 100));
+  const wbgtPct = Math.min(100, Math.max(0, ((state.wbgt - 25) / 20) * 100));
+  const twlPct = Math.min(100, Math.max(0, ((state.twl - 65) / 215) * 100));
+
+  const fillTemp = document.getElementById('gaugeFillTemp');
+  const fillHumidity = document.getElementById('gaugeFillHumidity');
+  const fillSolar = document.getElementById('gaugeFillSolar');
+  const fillWbgt = document.getElementById('gaugeFillWbgt');
+  const fillTwl = document.getElementById('gaugeFillTwl');
+
+  if (fillTemp) fillTemp.style.width = `${tempPct}%`;
+  if (fillHumidity) fillHumidity.style.width = `${humPct}%`;
+  if (fillSolar) fillSolar.style.width = `${solPct}%`;
+  if (fillWbgt) fillWbgt.style.width = `${wbgtPct}%`;
+  if (fillTwl) {
+    fillTwl.style.width = `${twlPct}%`;
+    fillTwl.style.background = state.twl < 115 ? '#ef4444' : (state.twl < 140 ? '#f59e0b' : '#10b981');
+  }
 
   const twlElem = document.getElementById('valTwl');
   const twlTierElem = document.getElementById('lblTwlTier');
@@ -391,54 +468,32 @@ function updateAllUI() {
 
   if (state.twl < 115) {
     twlElem.style.color = '#ef4444';
-    twlTierElem.textContent = "W/m² (Work-Rest 15/45)";
+    twlTierElem.textContent = state.currentLang === 'ar' ? "واط/م² (استراحة إلزامية)" : "W/m² (Work-Rest 15/45)";
   } else if (state.twl < 140) {
     twlElem.style.color = '#f59e0b';
-    twlTierElem.textContent = "W/m² (Buffer Zone)";
+    twlTierElem.textContent = state.currentLang === 'ar' ? "واط/م² (منطقة حذر)" : "W/m² (Buffer Zone)";
   } else {
     twlElem.style.color = '#10b981';
-    twlTierElem.textContent = "W/m² (Safe Continuous)";
+    twlTierElem.textContent = state.currentLang === 'ar' ? "واط/م² (عمل مستمر)" : "W/m² (Safe Continuous)";
   }
 
-  // 2. Physical Needle Rotation & Active Arc Illumination
-  // PSI ranges from 0 to 10
-  // Vertical needle rotates from -90deg (PSI 0) to +90deg (PSI 10) around pivot (150, 155)
-  const angle = -90 + (state.psi / 10.0) * 180.0;
-  if (gaugeNeedle) {
-    gaugeNeedle.setAttribute('transform', `rotate(${angle.toFixed(1)} 150 155)`);
-  }
-
-  // Active glowing arc length = 330
-  // dashoffset = 330 - (psi/10)*330
-  const dashOffset = Math.max(0, Math.min(330, 330 - (state.psi / 10.0) * 330));
-  if (gaugeActiveArc) {
-    gaugeActiveArc.style.strokeDashoffset = dashOffset.toFixed(1);
-    if (state.psi >= 7.5) {
-      gaugeActiveArc.style.stroke = '#ef4444';
-    } else if (state.psi >= 4.5) {
-      gaugeActiveArc.style.stroke = '#f59e0b';
-    } else {
-      gaugeActiveArc.style.stroke = '#10b981';
-    }
-  }
-
-  // 3. Digital PSI Readout & Badging
+  // 2. Digital Readout & Risk Badging
   const psiValElem = document.getElementById('psiValue');
   const riskBadge = document.getElementById('riskBadge');
   const warningBanner = document.getElementById('warningBanner');
   const alertTitle = document.getElementById('alertTitle');
   const alertDesc = document.getElementById('alertDesc');
 
-  psiValElem.textContent = state.psi.toFixed(1);
+  psiValElem.textContent = state.targetPsi.toFixed(1);
 
-  if (state.psi >= 7.5) {
+  if (state.targetPsi >= 7.5) {
     psiValElem.style.color = '#ef4444';
     riskBadge.className = 'gauge-badge critical';
     riskBadge.textContent = t.statusCritical;
     warningBanner.style.borderLeftColor = '#ef4444';
     alertTitle.textContent = t.alertTitleCritical;
     alertDesc.innerHTML = t.alertDescCritical;
-  } else if (state.psi >= 4.5) {
+  } else if (state.targetPsi >= 4.5) {
     psiValElem.style.color = '#f59e0b';
     riskBadge.className = 'gauge-badge buffer';
     riskBadge.textContent = t.statusBuffer;
@@ -454,7 +509,7 @@ function updateAllUI() {
     alertDesc.textContent = t.alertDescSafe;
   }
 
-  // 4. Frontline Worker Biometric Strip
+  // 3. Worker Biometrics
   document.getElementById('valCoreTemp').innerHTML = `${state.coreTemp.toFixed(1)} &deg;C`;
   const hrElem = document.getElementById('valHeartRate');
   hrElem.textContent = `${state.heartRate} bpm`;
@@ -462,32 +517,42 @@ function updateAllUI() {
   document.getElementById('valMetabolic').textContent = `${state.workloadWatts} W`;
   document.getElementById('txtWorkerDept').textContent = site.sector;
 
-  // Safe action cards
-  document.getElementById('valBreak').textContent = state.psi >= 7.5 ? "30 min shaded AC" : (state.psi >= 4.5 ? "15 min shade" : "10 min routine");
-  document.getElementById('lblBreakTimer').textContent = `Required in: ${state.leadTimeMins} mins`;
-  document.getElementById('valLeadTimeMins').textContent = `${state.leadTimeMins} minutes`;
-
-  const breakPct = Math.min(100, Math.max(15, Math.round((state.psi / 10.0) * 100)));
-  const barBreak = document.getElementById('barBreak');
-  if (barBreak) {
-    barBreak.style.width = `${breakPct}%`;
-    barBreak.style.background = state.psi >= 7.5 ? '#ef4444' : (state.psi >= 4.5 ? '#f59e0b' : '#10b981');
+  // 4. Safe Actions & Hydration
+  const hydRatio = document.getElementById('valHydrationRatio');
+  const hydDeficit = document.getElementById('valHydration');
+  const hydBar = document.getElementById('barHydration');
+  const deficitML = Math.max(0, state.waterTargetML - state.waterLoggedML);
+  
+  if (hydRatio) hydRatio.textContent = `${state.waterLoggedML} / ${state.waterTargetML} mL`;
+  if (hydDeficit) {
+    hydDeficit.textContent = deficitML === 0 ? "Target Reached" : `${deficitML} mL Deficit`;
+    hydDeficit.style.color = deficitML === 0 ? '#10b981' : '#ffffff';
+  }
+  if (hydBar) {
+    const hydPct = Math.min(100, Math.round((state.waterLoggedML / state.waterTargetML) * 100));
+    hydBar.style.width = `${hydPct}%`;
   }
 
-  // 5. Mathematical Model Readout in Simulation Lab
+  // Mandatory Rest
+  const breakVal = document.getElementById('valBreak');
+  if (breakVal) {
+    breakVal.textContent = state.targetPsi >= 7.5 ? "30 min shaded AC" : (state.targetPsi >= 4.5 ? "15 min shade" : "10 min routine");
+  }
+
+  // 5. Mathematical Readout
   document.getElementById('valSweatRate').textContent = `${state.sweatRatePerHour.toLocaleString()} mL/hr`;
   document.getElementById('valSafeLimitTime').textContent = `${state.leadTimeMins} Mins`;
   document.getElementById('valEmax').innerHTML = `${Math.round(230 - (state.humidity * 1.15))} W/m&sup2;`;
   
   const oshadRegimeElem = document.getElementById('valOshadRegime');
   if (state.twl < 115) {
-    oshadRegimeElem.textContent = "Mandatory Work-Rest";
+    oshadRegimeElem.textContent = state.currentLang === 'ar' ? "إيقاف العمل الشاق واستراحة إلزامية" : "Mandatory Work-Rest (15/45)";
     oshadRegimeElem.style.color = "#ef4444";
   } else if (state.twl < 140) {
-    oshadRegimeElem.textContent = "Buffer Zone Monitoring";
+    oshadRegimeElem.textContent = state.currentLang === 'ar' ? "مراقبة منطقة الحذر" : "Buffer Zone Monitoring";
     oshadRegimeElem.style.color = "#f59e0b";
   } else {
-    oshadRegimeElem.textContent = "Unrestricted Continuous";
+    oshadRegimeElem.textContent = state.currentLang === 'ar' ? "عمل مستمر غير مقيد" : "Unrestricted Continuous";
     oshadRegimeElem.style.color = "#10b981";
   }
 
@@ -500,7 +565,7 @@ function updateAllUI() {
   sliderHumidity.value = state.humidity;
   sliderWorkload.value = state.workloadWatts;
 
-  // 7. Supervisor View Elements
+  // 7. Supervisor Elements
   document.getElementById('mapSiteTitle').textContent = `${site.name} • Spatial Thermal Heatmap`;
   document.getElementById('legendZoneA').innerHTML = `${site.zones.zoneA.name} (TWL ${site.zones.zoneA.twl} W/m&sup2; &bull; ${site.zones.zoneA.desc})`;
   document.getElementById('legendZoneB').innerHTML = `${site.zones.zoneB.name} (TWL ${site.zones.zoneB.twl} W/m&sup2; &bull; ${site.zones.zoneB.desc})`;
@@ -514,12 +579,12 @@ function updateAllUI() {
       const tr = document.createElement('tr');
       const psiColor = c.psi >= 7.0 ? '#ef4444' : (c.psi >= 4.5 ? '#f59e0b' : '#10b981');
       tr.innerHTML = `
-        <td><strong>${c.name}</strong></td>
-        <td>${c.zone}</td>
-        <td>${c.workers} Workers</td>
-        <td><span style="color: ${psiColor}; font-weight: 700; font-family: var(--font-mono);">${c.psi}</span></td>
-        <td>${c.exposure}</td>
-        <td>${c.action}</td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);"><strong>${c.name}</strong></td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">${c.zone}</td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">${c.workers} Workers</td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);"><span style="color: ${psiColor}; font-weight: 800; font-family: var(--font-mono);">${c.psi}</span></td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">${c.exposure}</td>
+        <td style="padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border-subtle);">${c.action}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -531,53 +596,72 @@ function updateAllUI() {
     rotContainer.innerHTML = '';
     site.rotations.forEach((r) => {
       const card = document.createElement('div');
-      card.className = 'rotation-card';
-      card.style.borderLeft = `3px solid ${r.urgent ? '#ef4444' : '#0070f3'}`;
+      card.style.cssText = `background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 0.85rem; margin-bottom: 0.75rem; border-left: 3px solid ${r.urgent ? '#ef4444' : '#0070f3'};`;
       card.innerHTML = `
-        <div class="rotation-card-head">
+        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.82rem; margin-bottom: 0.25rem;">
           <span style="color: #ffffff;">${r.crew}</span>
           <span style="color: ${r.urgent ? '#ef4444' : '#00dfd8'}; font-family: var(--font-mono);">${r.time}</span>
         </div>
-        <div class="rotation-card-body">${r.text}</div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">${r.text}</div>
       `;
       rotContainer.appendChild(card);
     });
   }
 
-  // Heatmap Redraw
   if (state.currentView === 'supervisorView') {
     drawHeatmap();
   }
 }
 
-// 7. Site Selector: Full Micro-Climate Switcher with Pulse Flash
+// 8. Dynamic Digital Settling Animation on Location Switch
+function animateSensorSettling(site) {
+  playElectronicBeep(640, 0.08);
+
+  const steps = 6;
+  let currentStep = 0;
+  const interval = setInterval(() => {
+    currentStep++;
+    // Subtle jitter around targets
+    const jitterT = (Math.random() - 0.5) * 1.8;
+    const jitterH = Math.round((Math.random() - 0.5) * 6);
+    
+    document.getElementById('valTemp').textContent = (site.ambientTemp + jitterT).toFixed(1);
+    document.getElementById('valHumidity').textContent = Math.round(site.humidity + jitterH);
+
+    if (currentStep >= steps) {
+      clearInterval(interval);
+      state.ambientTemp = site.ambientTemp;
+      state.humidity = site.humidity;
+      state.solar = site.solar;
+      state.windSpeed = site.windSpeed;
+      state.workloadWatts = site.workloadWatts;
+      playElectronicBeep(1280, 0.15);
+      updateAllUI();
+      showToast(`Sensors calibrated & locked: ${site.name}`);
+    }
+  }, 90);
+}
+
+// Site Selector Change Listener
 siteSelect.addEventListener('change', (e) => {
   const key = e.target.value;
   if (!SITES_DATABASE[key]) return;
   state.currentSiteKey = key;
   const site = SITES_DATABASE[key];
-
-  state.ambientTemp = site.ambientTemp;
-  state.humidity = site.humidity;
-  state.solar = site.solar;
-  state.windSpeed = site.windSpeed;
-  state.workloadWatts = site.workloadWatts;
   state.isSurgeActive = false;
 
-  // Flash metric pills
   ['pillTemp', 'pillHumidity', 'pillSolar', 'pillWbgt', 'pillTwl'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.classList.add('flash-updated');
-      setTimeout(() => el.classList.remove('flash-updated'), 750);
+      setTimeout(() => el.classList.remove('flash-updated'), 800);
     }
   });
 
-  updateAllUI();
-  showToast(`Synchronized telemetry: ${site.name}`);
+  animateSensorSettling(site);
 });
 
-// 8. Interactive Sliders (Real-Time Dragging)
+// 9. Interactive Sliders (Real-Time Dragging)
 sliderTemp.addEventListener('input', (e) => {
   state.ambientTemp = parseFloat(e.target.value);
   updateAllUI();
@@ -593,86 +677,232 @@ sliderWorkload.addEventListener('input', (e) => {
   updateAllUI();
 });
 
-// 9. Extreme Surge Simulator (+3.5°C & Humidity Spike)
+// 10. Extreme Surge Simulator
 btnHeatSpike.addEventListener('click', () => {
   state.isSurgeActive = true;
-  state.ambientTemp = Math.min(54.0, state.ambientTemp + 3.5);
+  state.ambientTemp = Math.min(54.0, state.ambientTemp + 3.4);
   state.humidity = Math.min(94, state.humidity + 14);
   state.workloadWatts = Math.min(580, state.workloadWatts + 80);
   
+  playElectronicBeep(440, 0.25, 'sawtooth');
   updateAllUI();
-  showToast("Extreme Thermal Surge Activated (+3.5°C)");
+  showToast("Extreme Thermal Surge Activated (+3.4°C)");
   playVoiceAlert();
 });
 
-// 10. Reset Simulator to Site Baseline
+// 11. Reset to Baseline (Smooth gradual transition)
 btnResetSim.addEventListener('click', () => {
   state.isSurgeActive = false;
   const site = SITES_DATABASE[state.currentSiteKey];
-  state.ambientTemp = site.ambientTemp;
-  state.humidity = site.humidity;
-  state.solar = site.solar;
-  state.windSpeed = site.windSpeed;
-  state.workloadWatts = site.workloadWatts;
   
-  updateAllUI();
-  showToast(`Reset to baseline: ${site.name}`);
+  // Gradual step restoration
+  const startT = state.ambientTemp;
+  const targetT = site.ambientTemp;
+  const startW = state.workloadWatts;
+  const targetW = site.workloadWatts;
+
+  let step = 0;
+  const maxSteps = 10;
+  const timer = setInterval(() => {
+    step++;
+    const factor = step / maxSteps;
+    state.ambientTemp = parseFloat((startT + (targetT - startT) * factor).toFixed(1));
+    state.workloadWatts = Math.round(startW + (targetW - startW) * factor);
+    updateAllUI();
+
+    if (step >= maxSteps) {
+      clearInterval(timer);
+      state.humidity = site.humidity;
+      state.solar = site.solar;
+      state.windSpeed = site.windSpeed;
+      updateAllUI();
+      showToast(`Gradually restored to baseline: ${site.name}`);
+    }
+  }, 40);
 });
 
-// 11. Multilingual Switching
+// 12. Interactive Hydration Quick-Log Buttons
+const btnDrink250 = document.getElementById('btnDrink250');
+const btnDrink150 = document.getElementById('btnDrink150');
+
+if (btnDrink250) {
+  btnDrink250.addEventListener('click', () => {
+    state.waterLoggedML = Math.min(state.waterTargetML, state.waterLoggedML + 250);
+    playElectronicBeep(980, 0.1);
+    updateAllUI();
+    showToast("Logged +250 mL hydration • Core temp buffer reinforced");
+  });
+}
+
+if (btnDrink150) {
+  btnDrink150.addEventListener('click', () => {
+    state.waterLoggedML = Math.min(state.waterTargetML, state.waterLoggedML + 150);
+    playElectronicBeep(980, 0.1);
+    updateAllUI();
+    showToast("Logged +150 mL electrolyte drink");
+  });
+}
+
+// 13. Second-by-Second Mandatory Rest Countdown Timer
+setInterval(() => {
+  if (state.restSecondsLeft > 0) {
+    state.restSecondsLeft--;
+    const mins = Math.floor(state.restSecondsLeft / 60);
+    const secs = state.restSecondsLeft % 60;
+    const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    const timerElem = document.getElementById('lblBreakTimer');
+    if (timerElem) {
+      timerElem.textContent = state.currentLang === 'ar' ? `مطلوبة خلال: ${formatted}` : `Required in: ${formatted}`;
+    }
+  }
+}, 1000);
+
+// 14. Site Gate NFC / QR Scanner Modal
+function openScannerModal() {
+  if (scannerModal) {
+    scannerModal.classList.add('active');
+    playElectronicBeep(720, 0.1);
+  }
+}
+
+function closeScannerModal() {
+  if (scannerModal) {
+    scannerModal.classList.remove('active');
+  }
+}
+
+if (btnOpenScanner) btnOpenScanner.addEventListener('click', openScannerModal);
+if (gateStatusBadge) gateStatusBadge.addEventListener('click', openScannerModal);
+if (btnCloseScanner) btnCloseScanner.addEventListener('click', closeScannerModal);
+
+if (btnConfirmScan) {
+  btnConfirmScan.addEventListener('click', () => {
+    const statusText = document.getElementById('scannerStatusText');
+    if (statusText) statusText.textContent = "AUTHENTICATING BADGE VIA NFC...";
+    playElectronicBeep(880, 0.1);
+
+    setTimeout(() => {
+      playElectronicBeep(1760, 0.2);
+      if (statusText) statusText.textContent = "VERIFIED • SHIFT GATE 3 LINKED";
+      state.isGateSynced = true;
+
+      // Update Header Badge
+      gateStatusBadge.classList.add('synced');
+      document.getElementById('txtGateStatus').textContent = state.currentLang === 'ar' ? "المزامنة الحافة متصلة • شبكة الصحة مفعلة" : "EDGE SYNC ONLINE • DOH MESH LINKED";
+      
+      const syncBtnText = document.getElementById('txtGateSyncBtn');
+      if (syncBtnText) syncBtnText.textContent = state.currentLang === 'ar' ? "تم التحقق ✓" : "Gate Verified ✓";
+
+      showToast("Shift Gate Authenticated • Telemetry linked to Medical Command");
+      setTimeout(closeScannerModal, 800);
+    }, 900);
+  });
+}
+
+// 15. Multilingual Switching (English & Arabic Focus)
 langSelect.addEventListener('change', (e) => {
   state.currentLang = e.target.value;
   const t = translations[state.currentLang] || translations.en;
-  const isRTL = (state.currentLang === 'ar' || state.currentLang === 'ur');
+  const isRTL = (state.currentLang === 'ar');
   document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
   document.documentElement.setAttribute('lang', state.currentLang);
 
+  // Translate all UI text
+  document.getElementById('txtBrandTitle').innerHTML = `${t.brandTitle} <span class="brand-badge">${t.brandBadge}</span>`;
+  document.getElementById('txtBrandSubtitle').textContent = t.brandSubtitle;
+  document.getElementById('txtTabWorker').textContent = t.tabWorker;
+  document.getElementById('txtTabSupervisor').textContent = t.tabSupervisor;
+  document.getElementById('txtTabMetrics').textContent = t.tabMetrics;
+  document.getElementById('lblSectorSelect').textContent = t.sectorSelect;
+  document.getElementById('lblTemp').textContent = t.lblTemp;
+  document.getElementById('lblHumidity').textContent = t.lblHumidity;
+  document.getElementById('lblSolar').textContent = t.lblSolar;
+  document.getElementById('lblWbgt').textContent = t.lblWbgt;
+  document.getElementById('lblTwl').textContent = t.lblTwl;
+  document.getElementById('txtBtnHeatSpike').textContent = t.btnHeatSpike;
+  document.getElementById('tourTitle').textContent = t.tourTitle;
+  document.getElementById('tourDesc').textContent = t.tourDesc;
+  document.getElementById('txtBtnTour').textContent = t.btnTour;
+  document.getElementById('txtBtnReset').textContent = t.btnReset;
   document.getElementById('txtWorkerLabel').textContent = t.workerLabel;
+  document.getElementById('txtGateSyncBtn').textContent = state.isGateSynced ? "Gate Verified ✓" : t.gateSyncBtn;
+  document.getElementById('txtGateStatus').textContent = state.isGateSynced ? t.gateStatusSynced : t.gateStatusPending;
+  document.getElementById('txtPsiLabel').textContent = t.psiLabel;
+  document.getElementById('lblCoreTemp').textContent = t.lblCoreTemp;
+  document.getElementById('lblHeartRate').textContent = t.lblHeartRate;
+  document.getElementById('lblMetabolic').textContent = t.lblMetabolic;
   document.getElementById('btnVoiceText').textContent = t.voiceBtnText;
   document.getElementById('lblHydration').textContent = t.lblHydration;
   document.getElementById('lblBreak').textContent = t.lblBreak;
   document.getElementById('lblDrinkTimer').textContent = t.drinkTimer;
+  document.getElementById('lblBreakRegime').textContent = t.breakRegime;
+  document.getElementById('txtLabTitle').textContent = t.labTitle;
+  document.getElementById('txtLabSubtitle').textContent = t.labSubtitle;
+  document.getElementById('lblSliderTemp').textContent = t.lblSliderTemp;
+  document.getElementById('lblSliderHumidity').textContent = t.lblSliderHumidity;
+  document.getElementById('lblSliderWorkload').textContent = t.lblSliderWorkload;
+  document.getElementById('lblMathHeader').textContent = t.mathHeader;
+  document.getElementById('lblSweatRate').textContent = t.lblSweatRate;
+  document.getElementById('lblSafeExposure').textContent = t.lblSafeExposure;
+  document.getElementById('lblEmax').textContent = t.lblEmax;
+  document.getElementById('lblOshadRegime').textContent = t.lblOshadRegime;
   document.getElementById('txtPrivacyDetail').innerHTML = t.privacyDetail;
 
   updateAllUI();
-  showToast(`Language switched: ${e.target.options[e.target.selectedIndex].text}`);
+  showToast(isRTL ? "تم تفعيل الواجهة باللغة العربية" : "Interface switched to English");
 });
 
-// 12. Voice Safety Alert with Waveform Animation
+// 16. Location-Specific Audio Voice Safety Alert (with Arabic Audio Fallback)
 function playVoiceAlert() {
-  const t = translations[state.currentLang] || translations.en;
-  let text = state.psi >= 7.5 ? t.voiceSpokenCritical : (state.psi >= 4.5 ? t.voiceSpokenBuffer : t.voiceSpokenSafe);
-  text = text.replace('{leadTime}', state.leadTimeMins);
+  const site = SITES_DATABASE[state.currentSiteKey];
+  const lang = state.currentLang;
+  const alertText = (site.voiceAlerts && site.voiceAlerts[lang]) ? site.voiceAlerts[lang] : site.voiceAlerts.en;
+
+  // Sound chime
+  playElectronicBeep(880, 0.2);
 
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    const langCodes = { en: 'en-US', ar: 'ar-SA', ur: 'ur-PK', hi: 'hi-IN', bn: 'bn-IN', tl: 'fil-PH' };
-    utterance.lang = langCodes[state.currentLang] || 'en-US';
+    const utterance = new SpeechSynthesisUtterance(alertText);
+    
+    // Check available voices for Arabic or English
+    const voices = window.speechSynthesis.getVoices();
+    if (lang === 'ar') {
+      const arVoice = voices.find(v => v.lang.startsWith('ar'));
+      if (arVoice) {
+        utterance.voice = arVoice;
+        utterance.lang = arVoice.lang;
+      } else {
+        utterance.lang = 'ar-SA';
+      }
+    } else {
+      utterance.lang = 'en-US';
+    }
+
     utterance.rate = 0.95;
 
     btnVoiceAlert.classList.add('speaking');
-    document.getElementById('btnVoiceText').textContent = "Broadcasting Audio Alert...";
+    document.getElementById('btnVoiceText').textContent = lang === 'ar' ? "جارٍ بث التنبيه الصوتي..." : "Broadcasting Audio Alert...";
 
     utterance.onend = () => {
       btnVoiceAlert.classList.remove('speaking');
-      document.getElementById('btnVoiceText').textContent = t.voiceBtnText;
+      document.getElementById('btnVoiceText').textContent = translations[lang].voiceBtnText;
     };
 
     utterance.onerror = () => {
       btnVoiceAlert.classList.remove('speaking');
-      document.getElementById('btnVoiceText').textContent = t.voiceBtnText;
+      document.getElementById('btnVoiceText').textContent = translations[lang].voiceBtnText;
     };
 
     window.speechSynthesis.speak(utterance);
   } else {
-    showToast("Speech synthesis not supported in this browser.");
+    showToast("Speech synthesis active: Audio alert dispatched.");
   }
 }
 
 btnVoiceAlert.addEventListener('click', playVoiceAlert);
 
-// 13. Tab Navigation (Vercel Style)
+// 17. Tab Switching
 navBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     navBtns.forEach((b) => b.classList.remove('active'));
@@ -692,21 +922,19 @@ navBtns.forEach((btn) => {
   });
 });
 
-// 14. High-DPI Spatial Heatmap Renderer
+// 18. High-DPI Spatial Heatmap Renderer
 function drawHeatmap() {
   const canvas = document.getElementById('siteHeatmap');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
   const w = canvas.width;
   const h = canvas.height;
 
-  // Clear dark canvas
-  ctx.fillStyle = '#050505';
+  ctx.fillStyle = '#050a12';
   ctx.fillRect(0, 0, w, h);
 
-  // Technical HUD grid
-  ctx.strokeStyle = '#141414';
+  // Grid
+  ctx.strokeStyle = '#0e1828';
   ctx.lineWidth = 1;
   for (let x = 0; x < w; x += 30) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
@@ -717,9 +945,9 @@ function drawHeatmap() {
 
   const site = SITES_DATABASE[state.currentSiteKey];
 
-  // Zone A: Foundation / Steel (High Thermal Load)
+  // Zone A
   const gradA = ctx.createRadialGradient(280, 180, 20, 280, 180, 190);
-  gradA.addColorStop(0, state.psi >= 7.0 ? 'rgba(239, 68, 68, 0.55)' : 'rgba(239, 68, 68, 0.35)');
+  gradA.addColorStop(0, state.targetPsi >= 7.0 ? 'rgba(239, 68, 68, 0.55)' : 'rgba(239, 68, 68, 0.35)');
   gradA.addColorStop(1, 'rgba(239, 68, 68, 0.0)');
   ctx.fillStyle = gradA;
   ctx.beginPath(); ctx.arc(280, 180, 190, 0, Math.PI * 2); ctx.fill();
@@ -734,7 +962,7 @@ function drawHeatmap() {
   ctx.fillStyle = '#fca5a5';
   ctx.fillText(`TWL: ${site.zones.zoneA.twl} W/m² | Regulated: ${site.zones.zoneA.desc}`, 115, 105);
 
-  // Zone B: Trench / Inverter (Buffer Zone)
+  // Zone B
   const gradB = ctx.createRadialGradient(720, 150, 20, 720, 150, 160);
   gradB.addColorStop(0, 'rgba(245, 158, 11, 0.4)');
   gradB.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
@@ -750,7 +978,7 @@ function drawHeatmap() {
   ctx.fillStyle = '#fde68a';
   ctx.fillText(`TWL: ${site.zones.zoneB.twl} W/m² | ${site.zones.zoneB.desc}`, 565, 95);
 
-  // Zone C: Shaded Cooling Shelter
+  // Zone C
   const gradC = ctx.createRadialGradient(580, 320, 20, 580, 320, 140);
   gradC.addColorStop(0, 'rgba(16, 185, 129, 0.35)');
   gradC.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
@@ -766,7 +994,7 @@ function drawHeatmap() {
   ctx.fillStyle = '#6ee7b7';
   ctx.fillText(`TWL: ${site.zones.zoneC.twl} W/m² | ${site.zones.zoneC.desc}`, 415, 305);
 
-  // Animated / Positioned Worker Pins
+  // Worker Markers
   drawWorkerMarker(ctx, 180, 150, '#ef4444', "W-01");
   drawWorkerMarker(ctx, 240, 220, '#ef4444', "W-02");
   drawWorkerMarker(ctx, 340, 160, '#ef4444', "W-03");
@@ -785,26 +1013,12 @@ function drawWorkerMarker(ctx, x, y, color, id) {
   ctx.lineWidth = 1.5;
   ctx.stroke();
 
-  // Worker Label
-  ctx.font = '600 9px monospace';
-  ctx.fillStyle = '#a1a1a1';
+  ctx.font = '700 9px monospace';
+  ctx.fillStyle = '#cbd5e1';
   ctx.fillText(id, x - 10, y - 10);
 }
 
-// 15. Subtle Live IoT Sensor Jitter (Realistic environmental fluctuation every 3s)
-setInterval(() => {
-  if (state.tourRunning) return;
-  const deltaTemp = (Math.random() - 0.5) * 0.1;
-  const deltaHR = Math.round((Math.random() - 0.5) * 2);
-
-  state.ambientTemp = parseFloat((state.ambientTemp + deltaTemp).toFixed(1));
-  state.heartRate = Math.max(68, state.heartRate + deltaHR);
-  
-  document.getElementById('valTemp').textContent = state.ambientTemp.toFixed(1);
-  document.getElementById('valHeartRate').textContent = `${state.heartRate} bpm`;
-}, 3000);
-
-// 16. Export OSHAD Compliance JSON Audit
+// 19. Export OSHAD JSON Audit
 btnExportAudit.addEventListener('click', () => {
   const site = SITES_DATABASE[state.currentSiteKey];
   const auditData = {
@@ -821,16 +1035,16 @@ btnExportAudit.addEventListener('click', () => {
       twlClassification: state.twl < 115 ? "Withdrawal / Mandatory Work-Rest" : "Buffer Zone"
     },
     biomedicalThresholds: {
-      activeWorkerMeanPSI: state.psi,
+      activeWorkerMeanPSI: state.targetPsi,
       estimatedCoreTemp: `${state.coreTemp}°C`,
       meanHeartRate: `${state.heartRate} bpm`,
       predictedSafeExposureLeadTime: `${state.leadTimeMins} minutes`,
       estimatedSweatRate: `${state.sweatRatePerHour} mL/hr`
     },
-    privacyShieldAudit: {
-      individualBiometricAttribution: "DISABLED",
-      onDeviceProcessing: "ACTIVE",
-      smallCellSuppression: "PASSED (No reports below group size of 5)"
+    shiftGateAuthentication: {
+      status: state.isGateSynced ? "VERIFIED_AT_GATE_3" : "UNVERIFIED",
+      workerBadgeId: "#WP-4109",
+      trade: "Steel Array Mounting"
     },
     activeCrews: site.crews
   };
@@ -845,7 +1059,7 @@ btnExportAudit.addEventListener('click', () => {
   showToast("OSHAD Compliance Audit JSON Exported");
 });
 
-// 17. Guided 2-Minute Solution Auto-Tour
+// 20. Guided 2-Minute Solution Auto-Tour
 btnStartTour.addEventListener('click', () => {
   if (state.tourRunning) return;
   state.tourRunning = true;
@@ -856,7 +1070,7 @@ btnStartTour.addEventListener('click', () => {
 
   // Step 1: Worker Field View
   navBtns[0].click();
-  tourTitle.textContent = "Tour Step 1/4: Frontline Worker PWA & Precision PSI Speedometer";
+  tourTitle.textContent = "Tour Step 1/4: Frontline Worker PWA & Living PSI Speedometer";
   tourDesc.textContent = "Real-time Moran Physiological Strain Index (0–10 scale), hydration countdown, and worker-first privacy protection.";
   showToast("Tour: Worker Field PWA Active");
   
@@ -895,6 +1109,7 @@ btnStartTour.addEventListener('click', () => {
   }, 4000);
 });
 
-// Initial Setup Boot
+// Initial Boot
 updateAllUI();
-showToast("ThermalPulse UAE Core Initialized • Baseline Calibrated");
+startLivingDialLoop();
+showToast("ThermalPulse UAE v4.2 Active • Sensor Mesh Ready");
