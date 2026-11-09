@@ -3,189 +3,318 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ThermalPulse UAE | Climate-Resilient Worker Health Platform</title>
-  <meta name="description" content="Predictive Micro-Climate & Physiological Thermal Strain Shield for Industrial Workforces in Abu Dhabi">
+  <title>ThermalPulse UAE | Predictive Climate-Resilient Health Platform</title>
+  <meta name="description" content="Predictive Micro-Climate & Physiological Thermal Strain Shield for Industrial Workforces (Abu Dhabi DoH, Microsoft, G42, MBZUAI)">
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Enterprise Glass Header -->
   <header class="header">
     <div class="brand">
-      <div class="brand-logo">TP</div>
+      <div class="brand-logo-container">
+        <div class="brand-logo">TP</div>
+      </div>
       <div class="brand-text">
         <h1>ThermalPulse UAE</h1>
-        <p>Abu Dhabi DoH &bull; Future Health Challenge</p>
+        <p>Abu Dhabi Department of Health &bull; G42 &bull; Microsoft &bull; MBZUAI</p>
       </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <nav class="nav-tabs" aria-label="Role Navigation">
+    <!-- Navigation Role Tabs -->
+    <nav class="nav-tabs" aria-label="Operational Mode">
       <button class="nav-btn active" data-view="workerView">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        Worker Field PWA
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Worker Field PWA &amp; Simulation Lab
       </button>
       <button class="nav-btn" data-view="supervisorView">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-        Supervisor Command
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        Supervisor Command Center
       </button>
       <button class="nav-btn" data-view="metricsView">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-        OSHAD Compliance & KPIs
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        OSHAD Regulatory Audit &amp; KPIs
       </button>
     </nav>
 
-    <!-- Header Actions -->
+    <!-- Header Tools -->
     <div class="header-actions">
-      <select id="langSelect" class="lang-select" aria-label="Select Language">
-        <option value="en">English</option>
-        <option value="ar">العربية (Arabic)</option>
-        <option value="ur">اردو (Urdu)</option>
+      <select id="langSelect" class="select-styled" aria-label="Select Language">
+        <option value="en">English (US)</option>
+        <option value="ar">العربية (Arabic - RTL)</option>
+        <option value="ur">اردو (Urdu - RTL)</option>
         <option value="hi">हिन्दी (Hindi)</option>
         <option value="bn">বাংলা (Bengali)</option>
-        <option value="tl">Tagalog</option>
+        <option value="tl">Tagalog (Filipino)</option>
       </select>
-      <div class="status-badge" id="offlineStatus">
-        <span class="status-dot"></span>
-        <span id="statusText">Edge Sync Online</span>
+      <div class="status-badge-live">
+        <span class="live-pulse-dot"></span>
+        <span id="txtLiveStatus">TELEMETRY SYNCED</span>
       </div>
     </div>
   </header>
 
-  <!-- Live Micro-Climate Telemetry Bar -->
-  <section class="telemetry-bar" aria-label="Live Environmental Telemetry">
-    <div class="telemetry-group">
-      <div class="telemetry-item">
-        <span class="label">Site:</span>
-        <select id="siteSelect" class="lang-select" style="padding: 0.2rem 0.5rem; font-size: 0.8rem;">
-          <option value="al_dhafra">Al Dhafra Solar Complex, Abu Dhabi</option>
-          <option value="masdar">Masdar City Sustainable Construction Zone</option>
-          <option value="khalifa_port">Khalifa Industrial Port Logistics Sector</option>
-          <option value="saadiyat">Saadiyat Cultural District Infrastructure</option>
-        </select>
+  <!-- Live Micro-Climate Telemetry Ticker -->
+  <section class="telemetry-ticker" aria-label="Live Environmental Telemetry Feed">
+    <div class="ticker-site-info">
+      <svg class="ticker-site-icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <span style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Abu Dhabi Sector:</span>
+      <select id="siteSelect" class="select-styled" style="padding: 0.35rem 0.75rem; font-size: 0.82rem;">
+        <option value="al_dhafra">Al Dhafra Solar PV Complex (Extreme Desert Heat)</option>
+        <option value="masdar">Masdar City Sustainable Construction District</option>
+        <option value="khalifa_port">Khalifa Industrial Zone / KIZAD (High Coastal Humidity)</option>
+        <option value="saadiyat">Saadiyat Cultural District Infrastructure Project</option>
+      </select>
+    </div>
+
+    <!-- Live Telemetry Values (Dynamically Recalculated on Change) -->
+    <div class="telemetry-metrics-strip">
+      <div class="metric-pill">
+        <span class="label">Ambient Temp</span>
+        <div class="value-wrap">
+          <span class="value" id="valTemp">49.2</span>
+          <span class="unit">&deg;C</span>
+        </div>
       </div>
-      <div class="telemetry-item">
-        <span class="label">Ambient Temp:</span>
-        <span class="value" id="valTemp">46.8</span>
-        <span class="unit">&deg;C</span>
+      <div class="metric-pill">
+        <span class="label">Relative Humidity</span>
+        <div class="value-wrap">
+          <span class="value" id="valHumidity">32</span>
+          <span class="unit">%</span>
+        </div>
       </div>
-      <div class="telemetry-item">
-        <span class="label">Humidity:</span>
-        <span class="value" id="valHumidity">72</span>
-        <span class="unit">%</span>
+      <div class="metric-pill">
+        <span class="label">Direct Solar</span>
+        <div class="value-wrap">
+          <span class="value" id="valSolar">1,080</span>
+          <span class="unit">W/m&sup2;</span>
+        </div>
       </div>
-      <div class="telemetry-item">
-        <span class="label">Solar Radiation:</span>
-        <span class="value" id="valSolar">960</span>
-        <span class="unit">W/m&sup2;</span>
+      <div class="metric-pill">
+        <span class="label">WBGT Heat Index</span>
+        <div class="value-wrap">
+          <span class="value" id="valWbgt" style="color: #ef4444;">35.8</span>
+          <span class="unit">&deg;C</span>
+        </div>
       </div>
-      <div class="telemetry-item">
-        <span class="label">WBGT Index:</span>
-        <span class="value" id="valWbgt" style="color: #ef4444;">35.2</span>
-        <span class="unit">&deg;C</span>
-      </div>
-      <div class="telemetry-item">
-        <span class="label">OSHAD TWL:</span>
-        <span class="value" id="valTwl" style="color: #f59e0b;">114</span>
-        <span class="unit">W/m&sup2; (Work-Rest)</span>
+      <div class="metric-pill">
+        <span class="label">OSHAD TWL Mandate</span>
+        <div class="value-wrap">
+          <span class="value" id="valTwl" style="color: #ef4444;">94</span>
+          <span class="unit" id="lblTwlTier">W/m&sup2; (Work-Rest)</span>
+        </div>
       </div>
     </div>
+
     <div>
-      <button id="btnHeatSpike" class="btn-danger" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">
-        Simulate Extreme Midday Spike
+      <button id="btnHeatSpike" class="btn-danger-pulse">
+        Simulate Extreme Surge (+3&deg;C)
       </button>
     </div>
   </section>
 
-  <!-- Main Container -->
+  <!-- Main View Container -->
   <main class="container">
 
-    <!-- Interactive Tour Banner -->
+    <!-- Guided Auto-Tour Banner -->
     <div class="tour-banner">
       <div class="tour-text">
-        <h3 id="tourTitle">Interactive 2-Minute Solution Walkthrough</h3>
-        <p id="tourDesc">Experience how ThermalPulse UAE protects workers from heat strain 25 minutes prior to critical onset.</p>
+        <h3 id="tourTitle">Interactive 2-Minute Solution Auto-Tour</h3>
+        <p id="tourDesc">Experience how ThermalPulse UAE dynamically protects workers from acute heat stress 25 minutes prior to clinical onset.</p>
       </div>
-      <div style="display: flex; gap: 0.5rem;">
+      <div class="tour-actions">
         <button id="btnStartTour" class="btn-primary">
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           Run Guided Auto-Tour
         </button>
-        <button id="btnResetSim" class="btn-secondary">Reset Telemetry</button>
+        <button id="btnResetSim" class="btn-secondary">Reset to Baseline</button>
       </div>
     </div>
 
-    <!-- VIEW 1: FRONTLINE WORKER PWA -->
+    <!-- VIEW 1: FRONTLINE WORKER PWA & SIMULATION LAB -->
     <section id="workerView" class="view-section active">
-      <div class="worker-pwa-container">
+      <div class="worker-pwa-layout">
         
-        <div class="worker-header">
-          <div class="worker-id">
-            <span id="txtWorkerLabel">Assigned Worker:</span> <strong>#WP-4109</strong> (Consented)
-          </div>
-          <div class="privacy-pill" id="txtPrivacyShield">Privacy Shield: Active</div>
-        </div>
-
-        <!-- Big PSI Gauge -->
-        <div class="gauge-card">
-          <div class="risk-level-badge buffer" id="riskBadge">MODERATE THERMAL STRAIN</div>
-          <div class="gauge-circle">
-            <svg width="180" height="180">
-              <circle cx="90" cy="90" r="75" stroke="#2a3a5e" stroke-width="12" fill="none" />
-              <circle id="gaugeArc" cx="90" cy="90" r="75" stroke="#f59e0b" stroke-width="12" fill="none"
-                      stroke-dasharray="471" stroke-dashoffset="210" stroke-linecap="round" />
-            </svg>
-            <div class="gauge-value-display">
-              <div class="psi-number" id="psiValue">5.6</div>
-              <div class="psi-label">PSI (Moran Index)</div>
+        <!-- Mobile PWA Device Shell -->
+        <div class="pwa-device-frame">
+          <div class="pwa-top-bar">
+            <div class="worker-identity">
+              <div class="worker-avatar">W1</div>
+              <div class="worker-meta">
+                <span class="id" id="txtWorkerLabel">Assigned Worker: #WP-4109</span>
+                <span class="dept" id="txtWorkerDept">Sector: Steel Erection &bull; Zone A</span>
+              </div>
+            </div>
+            <div class="privacy-shield-active" id="txtPrivacyShield">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              Privacy Shield Active
             </div>
           </div>
-          <p id="txtPsiStatus" style="font-size: 0.85rem; color: #cbd5e1;">Predicted Core Temp: 38.1&deg;C &bull; Est. HR: 132 bpm</p>
-        </div>
 
-        <!-- Early Warning Alert Banner -->
-        <div class="early-warning-banner" id="warningBanner">
-          <div class="warning-icon">!</div>
-          <div>
-            <div class="warning-title" id="alertTitle">Early Warning: High Thermal Load Detected</div>
-            <div class="warning-desc" id="alertDesc">
-              Cumulative thermal heat strain forecast indicates critical threshold reached in <strong>22 minutes</strong> without shaded rest and hydration.
+          <!-- Physical Precision Speedometer / PSI Gauge -->
+          <div class="gauge-pod">
+            <div class="gauge-svg-wrap">
+              <svg viewBox="0 0 240 150" width="240" height="150">
+                <!-- Gauge Background Arc -->
+                <path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round" />
+                
+                <!-- Color Tiers: Green Safe (0-4), Amber Buffer (4-7), Red Critical (7-10) -->
+                <path d="M 30 130 A 90 90 0 0 1 80 55" fill="none" stroke="#10b981" stroke-width="14" stroke-linecap="round" />
+                <path d="M 80 55 A 90 90 0 0 1 160 55" fill="none" stroke="#f59e0b" stroke-width="14" />
+                <path d="M 160 55 A 90 90 0 0 1 210 130" fill="none" stroke="#ef4444" stroke-width="14" stroke-linecap="round" />
+
+                <!-- Needle with Pivot Cap -->
+                <g id="gaugeNeedle" style="transform: rotate(20deg);">
+                  <line x1="120" y1="130" x2="38" y2="130" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+                  <circle cx="120" cy="130" r="9" fill="#0284c7" stroke="#ffffff" stroke-width="2.5" />
+                  <circle cx="120" cy="130" r="4" fill="#ffffff" />
+                </g>
+
+                <!-- Calibrated Tick Marks -->
+                <text x="24" y="145" fill="#64748b" font-size="9" font-weight="700">0</text>
+                <text x="68" y="44" fill="#64748b" font-size="9" font-weight="700">4</text>
+                <text x="160" y="44" fill="#64748b" font-size="9" font-weight="700">7</text>
+                <text x="210" y="145" fill="#64748b" font-size="9" font-weight="700">10</text>
+              </svg>
             </div>
+
+            <div class="gauge-readout-center">
+              <div class="gauge-psi-val" id="psiValue">5.8</div>
+              <div class="gauge-psi-label">Physiological Strain Index (PSI)</div>
+              <div class="gauge-badge buffer" id="riskBadge">MODERATE THERMAL STRAIN</div>
+            </div>
+
+            <!-- Secondary Biometric Live Readings -->
+            <div class="biometric-live-strip">
+              <div class="bio-node">
+                <span class="bio-node-label">Core Temp</span>
+                <div class="bio-node-val" id="valCoreTemp">38.2 &deg;C</div>
+              </div>
+              <div class="bio-node">
+                <span class="bio-node-label">Heart Rate</span>
+                <div class="bio-node-val" id="valHeartRate" style="color: #f59e0b;">134 bpm</div>
+              </div>
+              <div class="bio-node">
+                <span class="bio-node-label">Metabolic Load</span>
+                <div class="bio-node-val" id="valMetabolic">380 W</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Early Warning Alert Box -->
+          <div class="early-warning-card" id="warningBanner">
+            <div class="warning-indicator-icon">!</div>
+            <div class="warning-content">
+              <h4 id="alertTitle">Early Warning: High Thermal Load Detected</h4>
+              <p id="alertDesc">
+                Predictive thermal strain forecast indicates critical threshold reached in <strong id="valLeadTimeMins">22 minutes</strong> without shaded rest and electrolyte hydration.
+              </p>
+            </div>
+          </div>
+
+          <!-- Voice Safety Alert Button -->
+          <button id="btnVoiceAlert" class="btn-voice-broadcast">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            <span id="btnVoiceText">Play Audio Safety Alert (Voice)</span>
+          </button>
+
+          <!-- Safe Action Meters -->
+          <div class="safe-actions-pair">
+            <div class="meter-card">
+              <div class="tag" id="lblHydration">Hydration Target</div>
+              <div class="main-val" id="valHydration">500 / 750 mL</div>
+              <div class="sub-caption" id="lblDrinkTimer">Next 250mL in: 08:42</div>
+              <div class="progress-track">
+                <div class="progress-bar" id="barHydration" style="width: 66%; background: var(--accent-cyan);"></div>
+              </div>
+            </div>
+
+            <div class="meter-card">
+              <div class="tag" id="lblBreak">Mandatory Rest</div>
+              <div class="main-val" id="valBreak">15 min shade</div>
+              <div class="sub-caption" id="lblBreakTimer">Required in: 12 mins</div>
+              <div class="progress-track">
+                <div class="progress-bar" id="barBreak" style="width: 45%; background: var(--risk-buffer);"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Worker Privacy Statement -->
+          <div style="background: rgba(0,0,0,0.25); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 0.85rem; font-size: 0.74rem; color: #94a3b8; line-height: 1.45;">
+            <p id="txtPrivacyDetail">
+              <strong>Worker-First Governance Guarantee:</strong> Your individual biometric signals are processed on-device. Supervisors receive only anonymized crew-level risk averages. Zero data is shared for disciplinary or employment evaluation under Abu Dhabi DoH &amp; OSHAD standards.
+            </p>
           </div>
         </div>
 
-        <!-- Voice Alert Action Button -->
-        <button id="btnVoiceAlert" class="voice-action-btn">
-          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-          <span id="btnVoiceText">Play Audio Safety Alert (Voice)</span>
-        </button>
+        <!-- Simulation Lab: Interactive Sliders to Test Real-Time Responsiveness -->
+        <div class="simulation-lab-card">
+          <div class="lab-header">
+            <div class="lab-title">
+              <h3>
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                Biomedical Simulation Laboratory
+              </h3>
+              <p>Adjust environmental variables or metabolic workload to observe real-time algorithmic reactions across Moran PSI and OSHAD TWL.</p>
+            </div>
+            <span class="status-badge-live">LIVE MATH ENGINE</span>
+          </div>
 
-        <!-- Safe Action Recommendations Grid -->
-        <div class="actions-grid">
-          <div class="action-card">
-            <div class="action-card-title" id="lblHydration">Hydration Target</div>
-            <div class="action-card-value" id="valHydration">500 / 750 mL</div>
-            <div class="action-card-subtitle" id="lblDrinkTimer">Next 250mL in: 08:42</div>
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" style="width: 66%;"></div>
+          <!-- Slider 1: Ambient Temperature -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">Ambient Temperature (&deg;C)</span>
+              <span class="slider-val-readout" id="sliderTempVal">49.2 &deg;C</span>
+            </div>
+            <input type="range" min="35" max="55" step="0.5" value="49.2" class="range-slider" id="sliderTemp">
+          </div>
+
+          <!-- Slider 2: Relative Humidity -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">Relative Humidity (%)</span>
+              <span class="slider-val-readout" id="sliderHumidityVal">32 %</span>
+            </div>
+            <input type="range" min="15" max="95" step="1" value="32" class="range-slider" id="sliderHumidity">
+          </div>
+
+          <!-- Slider 3: Workload Intensity (Metabolic Rate) -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">Worker Metabolic Workload (Watts)</span>
+              <span class="slider-val-readout" id="sliderWorkloadVal">380 W (Heavy Physical Labor)</span>
+            </div>
+            <input type="range" min="150" max="600" step="25" value="380" class="range-slider" id="sliderWorkload">
+          </div>
+
+          <!-- Real-Time Mathematical Feedback Box -->
+          <div style="background: rgba(14, 22, 38, 0.9); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.25rem; margin-top: 1.5rem;">
+            <h4 style="font-size: 0.85rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">
+              Mathematical Model Output (ISO 7933 PHS &bull; Moran PSI)
+            </h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.82rem;">
+              <div>
+                <span style="color: #64748b;">Predicted Sweat Loss Rate:</span>
+                <strong style="color: #f8fafc; display: block; font-size: 1rem; font-family: var(--font-mono);" id="valSweatRate">1,120 mL/hr</strong>
+              </div>
+              <div>
+                <span style="color: #64748b;">Predicted Safe Exposure Time:</span>
+                <strong style="color: #f59e0b; display: block; font-size: 1rem; font-family: var(--font-mono);" id="valSafeLimitTime">22 Mins</strong>
+              </div>
+              <div>
+                <span style="color: #64748b;">Evaporative Heat Capacity:</span>
+                <strong style="color: #f8fafc; display: block; font-size: 1rem; font-family: var(--font-mono);" id="valEmax">182 W/m&sup2;</strong>
+              </div>
+              <div>
+                <span style="color: #64748b;">OSHAD Regulatory Regime:</span>
+                <strong style="color: #ef4444; display: block; font-size: 1rem; font-family: var(--font-mono);" id="valOshadRegime">Mandatory Work-Rest</strong>
+              </div>
             </div>
           </div>
-          <div class="action-card">
-            <div class="action-card-title" id="lblBreak">Mandatory Rest</div>
-            <div class="action-card-value" id="valBreak">15 min shade</div>
-            <div class="action-card-subtitle" id="lblBreakTimer">Required in: 12 mins</div>
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" style="width: 45%; background: #f59e0b;"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Worker-First Privacy Guardrails -->
-        <div class="privacy-box">
-          <p id="txtPrivacyDetail">
-            <strong>Worker-First Governance Guarantee:</strong> Your individual biometric signals are processed on-device. Supervisors receive only anonymized crew-level risk averages. Zero data is shared for disciplinary or employment evaluation under Abu Dhabi DoH &amp; OSHAD standards.
-          </p>
         </div>
 
       </div>
@@ -193,204 +322,135 @@
 
     <!-- VIEW 2: SUPERVISOR COMMAND CENTER -->
     <section id="supervisorView" class="view-section">
-      <div class="supervisor-grid">
+      
+      <!-- Interactive Site Blueprint Canvas -->
+      <div class="blueprint-card" style="margin-bottom: 1.75rem;">
+        <div class="blueprint-header">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #f8fafc;" id="mapSiteTitle">
+              Al Dhafra Solar Complex &bull; Spatial Thermal Heatmap
+            </h3>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.2rem;">
+              Real-time multi-zone thermal risk matrix with live worker coordinates and micro-climate gradients.
+            </p>
+          </div>
+          <span class="status-badge-live">LIVE TELEMETRY MESH</span>
+        </div>
+
+        <canvas id="siteHeatmap" width="1200" height="420"></canvas>
+
+        <div class="blueprint-legend">
+          <div class="legend-chip">
+            <span class="legend-dot" style="background: #ef4444; box-shadow: 0 0 10px #ef4444;"></span>
+            <span id="legendZoneA">Zone A: Open Desert Foundation (TWL 94 W/m&sup2; &bull; Mandatory Work-Rest)</span>
+          </div>
+          <div class="legend-chip">
+            <span class="legend-dot" style="background: #f59e0b; box-shadow: 0 0 10px #f59e0b;"></span>
+            <span id="legendZoneB">Zone B: Inverter Station Trench (TWL 128 W/m&sup2; &bull; Buffer Zone)</span>
+          </div>
+          <div class="legend-chip">
+            <span class="legend-dot" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
+            <span id="legendZoneC">Zone C: Shaded Air-Conditioned Cooling Pods (TWL 245 W/m&sup2; &bull; Safe)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Crew Matrix & Shift Rotation Split -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.75rem;">
         
-        <!-- Spatial Site Heatmap & Zone Risk -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-              Abu Dhabi Construction Site Spatial Thermal Heatmap
-            </div>
-            <span class="status-badge">Live Sensor Mesh</span>
+        <!-- Anonymized Crew Table -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle);">
+            <h4 style="font-size: 1rem; font-weight: 800; color: #f8fafc;">
+              Anonymized Crew Heat Strain Roster (Privacy Shield Active)
+            </h4>
+            <button id="btnExportAudit" class="btn-primary" style="font-size: 0.78rem; padding: 0.4rem 0.85rem;">
+              Export OSHAD Audit Log (JSON)
+            </button>
           </div>
 
-          <div class="heatmap-container">
-            <canvas id="siteHeatmap" width="800" height="380"></canvas>
-            <div class="heatmap-legend">
-              <div class="legend-item">
-                <span class="legend-color" style="background: #10b981;"></span>
-                <span>Zone C: Prefab Facility (TWL 240 W/m&sup2; - Safe)</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-color" style="background: #f59e0b;"></span>
-                <span>Zone B: Earthworks / Trench (TWL 142 W/m&sup2; - Buffer)</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-color" style="background: #ef4444;"></span>
-                <span>Zone A: Structural Steel Erection (TWL 110 W/m&sup2; - Work-Rest)</span>
-              </div>
-            </div>
-          </div>
+          <table class="crew-table">
+            <thead>
+              <tr>
+                <th>Crew Name</th>
+                <th>Assigned Zone</th>
+                <th>Workers</th>
+                <th>Mean PSI</th>
+                <th>Exposure Time</th>
+                <th>Mandated Action</th>
+              </tr>
+            </thead>
+            <tbody id="crewTableBody">
+              <!-- Dynamically populated per site -->
+            </tbody>
+          </table>
         </div>
 
-        <!-- Automated Shift Rotation Optimizer -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-              Automated Shift Rotation Optimizer
-            </div>
-            <span class="status-badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border-color: #3b82f6;">OSHAD CoP 11.0</span>
+        <!-- Shift Rotation Plan -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle);">
+            <h4 style="font-size: 1rem; font-weight: 800; color: #f8fafc;">
+              Automated Shift Rotations
+            </h4>
+            <span class="status-badge-live" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">
+              OSHAD CoP 11.0
+            </span>
           </div>
 
-          <div id="rotationList">
-            <div class="rotation-card urgent">
-              <div class="rotation-header">
-                <span>Crew 02 (Steelwork - Zone A)</span>
-                <span style="color: #ef4444;">Rotate in 8 mins</span>
-              </div>
-              <div class="rotation-desc">
-                Current regime: 15 min work / 45 min shaded rest. Reallocate Crew 02 to Zone C cooling shelter; dispatch rested Crew 05.
-              </div>
-            </div>
-
-            <div class="rotation-card">
-              <div class="rotation-header">
-                <span>Crew 01 (Concrete Pour - Zone B)</span>
-                <span style="color: #f59e0b;">Rotate in 24 mins</span>
-              </div>
-              <div class="rotation-desc">
-                Current regime: 30 min work / 30 min rest. Electrolyte replenishment truck dispatched to Station 2.
-              </div>
-            </div>
-
-            <div class="rotation-card" style="border-left-color: #10b981;">
-              <div class="rotation-header">
-                <span>Crew 03 (Prefab Assembly - Zone C)</span>
-                <span style="color: #10b981;">Normal Operations</span>
-              </div>
-              <div class="rotation-desc">
-                Shaded modular building with active evaporative cooling. Standard 45 min work / 15 min rest cycle.
-              </div>
-            </div>
+          <div id="rotationCardsContainer">
+            <!-- Dynamically populated -->
           </div>
         </div>
 
       </div>
 
-      <!-- Anonymized Crew Thermal Strain Matrix -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            Anonymized Site Crew Heat Strain Matrix (Small-Cell Privacy Shield Active)
-          </div>
-          <button id="btnExportAudit" class="btn-primary" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
-            Export OSHAD Compliance Report (JSON)
-          </button>
-        </div>
-
-        <table class="crew-table">
-          <thead>
-            <tr>
-              <th>Crew Group</th>
-              <th>Assigned Zone</th>
-              <th>Headcount</th>
-              <th>Mean Physiological Strain (PSI)</th>
-              <th>Cumulative Exposure</th>
-              <th>Recommended Action</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="crewTableBody">
-            <tr>
-              <td><strong>Crew Alpha (Structural)</strong></td>
-              <td>Zone A (Open Steel)</td>
-              <td>14 Workers</td>
-              <td><span style="color: #ef4444; font-weight: 700;">6.8 (High)</span></td>
-              <td>42 mins</td>
-              <td>Immediate cooling shelter rotation</td>
-              <td><span class="status-badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border-color: #ef4444;">Warning</span></td>
-            </tr>
-            <tr>
-              <td><strong>Crew Beta (Excavation)</strong></td>
-              <td>Zone B (Earthworks)</td>
-              <td>10 Workers</td>
-              <td><span style="color: #f59e0b; font-weight: 700;">5.2 (Moderate)</span></td>
-              <td>28 mins</td>
-              <td>Hydration check (500mL electrolyte)</td>
-              <td><span class="status-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border-color: #f59e0b;">Monitor</span></td>
-            </tr>
-            <tr>
-              <td><strong>Crew Gamma (Logistics)</strong></td>
-              <td>Zone B (Depot)</td>
-              <td>8 Workers</td>
-              <td><span style="color: #10b981; font-weight: 700;">3.4 (Safe)</span></td>
-              <td>15 mins</td>
-              <td>Normal shift cadence</td>
-              <td><span class="status-badge">Optimal</span></td>
-            </tr>
-            <tr>
-              <td><strong>Crew Delta (Modular Fab)</strong></td>
-              <td>Zone C (Covered Facility)</td>
-              <td>18 Workers</td>
-              <td><span style="color: #10b981; font-weight: 700;">2.1 (Low)</span></td>
-              <td>60 mins</td>
-              <td>Standard break at 11:30</td>
-              <td><span class="status-badge">Optimal</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </section>
 
-    <!-- VIEW 3: OSHAD COMPLIANCE & KPIS -->
+    <!-- VIEW 3: OSHAD REGULATORY AUDIT & KPIS -->
     <section id="metricsView" class="view-section">
-      
-      <!-- Quantitative KPIs -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-val" id="kpiLeadTime">25.4 min</div>
-          <div class="kpi-title">Proactive Warning Lead Time</div>
-          <div class="kpi-sub">+18 min vs Legacy Thresholds</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.75rem;">
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">25.4 min</div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 0.35rem;">Proactive Warning Lead Time</div>
+          <div style="font-size: 0.72rem; color: var(--risk-safe); margin-top: 0.25rem;">+18 min vs Legacy Thresholds</div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-val" id="kpiFalseAlarm">3.8%</div>
-          <div class="kpi-title">False Alarm Rate</div>
-          <div class="kpi-sub">ISO 7933 Calibrated Precision</div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">3.8%</div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 0.35rem;">False Alarm Rate</div>
+          <div style="font-size: 0.72rem; color: var(--risk-safe); margin-top: 0.25rem;">ISO 7933 Calibrated Precision</div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-val">96.2%</div>
-          <div class="kpi-title">Mandatory Break Adherence</div>
-          <div class="kpi-sub">Across 1,200 Shift Cycles</div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent-cyan);">96.2%</div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 0.35rem;">Mandatory Break Adherence</div>
+          <div style="font-size: 0.72rem; color: var(--risk-safe); margin-top: 0.25rem;">Across 1,200 Shift Cycles</div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-val" style="color: #10b981;">0</div>
-          <div class="kpi-title">Heat Casualty Incidents</div>
-          <div class="kpi-sub">100% Zero-Harm Safety Record</div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: var(--risk-safe);">0</div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-top: 0.35rem;">Heat Casualty Incidents</div>
+          <div style="font-size: 0.72rem; color: var(--risk-safe); margin-top: 0.25rem;">100% Zero-Harm Safety Record</div>
         </div>
       </div>
 
-      <!-- Regulatory Compliance Verification -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            Abu Dhabi Department of Health &amp; OSHAD Regulatory CoP 11.0 Alignment
-          </div>
-          <span class="status-badge">Audited Compliance</span>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <!-- Regulatory Alignment Cards -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 1.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #f8fafc; margin-bottom: 1rem;">
+          Abu Dhabi Department of Health &amp; OSHAD Regulatory CoP 11.0 Alignment
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.88rem; color: #94a3b8; line-height: 1.8;">
           <div>
-            <h4 style="font-size: 0.95rem; color: #38bdf8; margin-bottom: 0.5rem;">Clinical &amp; Physiological Standards</h4>
-            <ul style="font-size: 0.85rem; color: #94a3b8; line-height: 1.8; padding-left: 1.2rem;">
-              <li><strong>ISO 7933 Ergonomics of the Thermal Environment:</strong> Mathematical analytical determination and interpretation of heat stress using Predicted Heat Strain (PHS).</li>
-              <li><strong>Moran Physiological Strain Index (PSI):</strong> Universal 0-10 scale combining core body temperature elevation and cardiovascular heart-rate response.</li>
-              <li><strong>Abu Dhabi OSHAD CoP 11.0:</strong> Thermal Work Limit (TWL) enforcement: automatic mandatory cessation of heavy work when TWL &lt; 115 W/m&sup2;.</li>
-            </ul>
+            <h4 style="color: #38bdf8; font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Clinical &amp; Physiological Standards</h4>
+            <p><strong>ISO 7933:2021 Ergonomics of the Thermal Environment:</strong> Mathematical analytical determination and interpretation of heat stress using Predicted Heat Strain (PHS).</p>
+            <p><strong>Moran Physiological Strain Index (PSI):</strong> Universal 0-10 scale combining core body temperature elevation and cardiovascular heart-rate response.</p>
+            <p><strong>Abu Dhabi OSHAD CoP 11.0:</strong> Thermal Work Limit (TWL) enforcement: automatic mandatory cessation of heavy work when TWL &lt; 115 W/m&sup2;.</p>
           </div>
           <div>
-            <h4 style="font-size: 0.95rem; color: #38bdf8; margin-bottom: 0.5rem;">Privacy &amp; Worker Rights Protections</h4>
-            <ul style="font-size: 0.85rem; color: #94a3b8; line-height: 1.8; padding-left: 1.2rem;">
-              <li><strong>Zero Disciplinary Surveillance:</strong> Strict non-attribution guarantee prohibiting individual health metric access to employers or human resources.</li>
-              <li><strong>Small-Cell Differential Privacy:</strong> Supervisor reporting suppressed for worker sub-groups under 5 persons to prevent re-identification.</li>
-              <li><strong>Pure Software Implementation:</strong> Zero hardware procurement or proprietary wearable lock-in; full PWA compatibility on iOS, Android, and web.</li>
-            </ul>
+            <h4 style="color: #38bdf8; font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem;">Privacy &amp; Worker Rights Protections</h4>
+            <p><strong>Zero Disciplinary Surveillance:</strong> Strict non-attribution guarantee prohibiting individual health metric access to employers or human resources.</p>
+            <p><strong>Small-Cell Differential Privacy:</strong> Supervisor reporting suppressed for worker sub-groups under 5 persons to prevent re-identification.</p>
+            <p><strong>Pure Software Implementation:</strong> Zero hardware procurement or proprietary wearable lock-in; full PWA compatibility on iOS, Android, and web.</p>
           </div>
         </div>
       </div>
-
     </section>
 
   </main>
